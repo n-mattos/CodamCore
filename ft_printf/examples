@@ -1,0 +1,52 @@
+%05d	42
+00042|
+
+%05d	42
+-00042|
+
+%8.3d	42
+     042|
+
+%8.3d	-42
+	-042|
+
+%.0d	0
+|
+
+%.d		0
+|
+
+
+INTEGER combinations:
+fieldwidth:	right justify
+minus:		left justify
+zero:		pads with zeros
+precision:	pads with zeros, or cuts short
+space/sign:	forces sign for positive numbers
+
+PRECISION && !minus:
+	ignore zero;
+
+	if (n < 0 || space > 0 || sign > 0)
+		add_spaces(fieldwidth - precision - 1);
+		print_sign(n);
+	else
+		print_sign(n);
+		add_spaces(fieldwidth - precision);
+
+	add_zeros(precision - length);
+
+	putnbr(n);
+
+
+PRECISION && minus:
+	ignore zero;
+
+	print_sign(n);
+	add_zeros(precision - length);
+	putnbr(n);
+
+	if (n < 0 || space > 0 || sign > 0)
+		add_spaces(fieldwidth - precision - 1);
+	else
+		add_spaces(fieldwidth - precision);

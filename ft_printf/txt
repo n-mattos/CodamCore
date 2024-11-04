@@ -1,0 +1,62 @@
+ALLOWED FUNCTIONS:
+	malloc, free, write,
+	va_start, va_arg, va_copy, va_end
+
+Mandatory:
+	%c	single character
+	%s	string
+	%p	void *ptr argument has to be printed in hexadecimal format
+	%d	decimal (base 10) number
+	%i	integer (base 10)
+	%u	unsigned decimal (base 10)
+	%x	hexadecimal (base 16) lowercase
+	%X	hexadecimal (base 16) uppercase
+	%%	percent sign
+
+BONUS:
+	’-’
+		all:
+			left-justify; adds spaces to the right
+	'0'
+		integers:
+			pads the number with leading zeros
+	'.'
+		strings:
+			max number of printed letters
+		integers:
+			minimum number of digits
+	and the field minimum width under all conversions
+	’#'
+		hexa:
+			adds 0x or 0X infront of the number
+	' '
+		signed numbers:
+			add space infront of positive numbers
+	'+'
+		signed numbers:
+			forces + infron of positive numbers
+
+Brainstorming:
+	print string till first format -> strchr(%)
+
+	check for flags [bonus]
+		if flag, check for numbers
+
+	check for format
+	get first argument (va_arg)
+	print argument using the right type and flags
+
+	print rest of string
+	etc
+
+FLAGS:
+	struct:
+		bool:
+			left-justify
+			zero-padding
+			precision
+			alternateform
+			space
+			sign
+		int:
+			fieldwidth

@@ -1,0 +1,19 @@
+Debian:
+	Easy to upgrade
+	Terminal usage
+	apt-get as package manager
+	vast amount of packages as default
+
+Apt v Aptitude:
+	Aptitude is a higher-level package manager than apt
+	Aptitude has vaster functionality and integrates functionalities of apt-get
+	Aptitude offers visual interface, while apt is on the command-line
+	Aptitude is more user-friendly than apt
+	When facing a conflict, aptitude will offer solutions, while apt will not
+
+Apparmor:
+	security framework for Linux
+	limits programs' capabilities
+	such as access to files, network, raw sockets, etc.
+	Apparmor is easier to maintain than SELinux
+	SELinux is more secure than Apparmor

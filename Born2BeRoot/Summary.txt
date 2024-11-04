@@ -1,0 +1,72 @@
+Passwords:
+root:
+8g1YIB7045Qv
+
+nmattos-
+6EU5mK1BKLtZ
+
+tignatov
+qWiGiC32q0YA
+
+
+
+
+
+
+
+
+
+
+OS:
+	Debian
+
+Partitioning:
+	2 encrypted partitions using LVM.
+
+SSH:
+	Mandatory port 4242
+	Not allowed to connect using SSH as root
+
+Firewall:
+	Active when launching the VM
+	Only port 4242 open, rest blocked
+
+Accounts:
+	hostname of VM: nmattos-42
+
+Password Policy:
+	Expire every 30 days
+	min days before reset: 2 days
+	send user warning message before expiration: 7 days
+	Min password length: 10 days
+	Contains:
+		uppercase, lowercase, number, !> 3 identical characters
+	can't include username
+	min 7 characters that are not part of former password !!![Excluding root password]!!!
+
+Sudo:
+	authentication w/ sudo !> 3 attempts
+	custom message displayed if error -> wrong password
+	every sudo action archived. (in- and output).
+		log file saved in /var/log/sudo/
+	TTY mode enabled
+	paths that sudo can use must be restricted
+
+Script:
+	name:
+		monitoring.sh
+	language:
+		bash
+	every 10 minutes, display:
+		architecture of OS and kernel version
+		x of physical processors
+		x of virtual processors
+		available RAM and utilization rate as %
+		available storage and utilization rate as %
+		utilization rate of processors as %
+		date and time of last reboot
+		LVM active or not
+		x of active connections
+		x of users using server
+		IPv4 adress of server and its MAC address
+		x of commands executed with sudo
