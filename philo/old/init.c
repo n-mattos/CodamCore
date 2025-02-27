@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:43:37 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/11 15:32:14 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 12:43:37 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/02/27 12:39:08 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,10 @@ t_forks	*init_forks(t_args *args)
 	forks = malloc(sizeof(t_forks));
 	if (!forks)
 		exit_error("malloc failed");
-	forks->available = malloc(sizeof(bool) * args->number_of_philosophers);
-	if (!forks->available)
-	{
-		free(forks);
-		exit_error("malloc failed");
-	}
-	memset(forks->available, true, args->number_of_philosophers);
 	forks->mutexes = initialize_mutex_array(args->number_of_philosophers);
 	if (!forks->mutexes)
 	{
 		free(forks);
-		free(forks->available);
-		exit_error("creating mutexes failed");
-	}
-	forks->grab = initialize_mutex_array(1);
-	if (!forks->grab)
-	{
-		free(forks->mutexes);
-		free(forks);
-		free(forks->available);
 		exit_error("creating mutexes failed");
 	}
 	return (forks);

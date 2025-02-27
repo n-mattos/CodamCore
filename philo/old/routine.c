@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 16:34:20 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:36:31 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   routine.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 16:34:20 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/02/27 12:33:26 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*philosopher_life(void *data_void)
 	data = (t_data *)data_void;
 	pthread_mutex_lock(&(data)->args->full_philos[data->philo->id]);
 	if (data->philo->id % 2 == 0)
-		ft_sleep_ms(5);
+		ft_sleep_ms(data->args->time_to_eat * 0.9 + 1);
 	while (data->philo->state == ALIVE || data->philo->state == FULL)
 	{
 		routine(data);

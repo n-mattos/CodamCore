@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:21:33 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:35:19 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   clean.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 15:21:33 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/02/27 12:38:49 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	free_args(t_args *args)
 void	free_forks(t_forks *forks, int n_forks)
 {
 	free_mutex(forks->mutexes, n_forks);
-	free(forks->available);
-	free_mutex(forks->grab, 1);
 	free(forks);
 }
 
