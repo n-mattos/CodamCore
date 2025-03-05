@@ -5,46 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:58:30 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/04 12:49:43 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/03/05 15:56:34 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/03/05 16:53:26 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
-void	free_all(pid_t *pids, pthread_t *threads, t_args *args)
+static void	wait_for_threads(t_data *data);
+static void	terminate_all(t_data *data);
+static void	free_data(t_data *data);
+static void	close_semaphores(t_data *data);
+
+void	cleanup(t_data *data)
 {
-	if (pids)
-		free(pids);
-	if (threads)
-		free(threads);
-	free_args(args);
+	sem_wait(data->exit);
+	terminate_all(data);
+	wait_for_threads(data);
+	free_data(data);
 }
 
-void	free_args(t_args *args)
+static void	wait_for_threads(t_data *data)
 {
-	sem_close(args->forks);
+	int	i;
+
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_join(data->philos[i].monitor, NULL);
+		i++;
+	}
+}
+
+static void	terminate_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philo)
+	{
+		kill(data->philos[i].pid, SIGKILL);
+		i++;
+	}
+}
+
+static void	free_data(t_data *data)
+{
+	free(data->philos);
+	close_semaphores(data);
+}
+
+static void	close_semaphores(t_data *data)
+{
+	sem_close(data->forks);
 	sem_unlink("/forks");
-	sem_close(args->stop);
-	sem_unlink("/stop");
-	sem_close(args->full);
-	sem_unlink("/full");
-	sem_close(args->exit);
-	sem_unlink("/exit");
-	if (args)
-		free(args);
-}
-
-void	free_data(t_data *data)
-{
-	if (data->philo)
-		free(data->philo);
-	if (data)
-		free(data);
-}
-
-void	exit_error_free(char *msg, pid_t *pids, pthread_t *thrd, t_args *args)
-{
-	free_all(pids, thrd, args);
-	exit_error(msg);
+	sem_close(data->time_lock);
+	sem_unlink("/time");
+	sem_close(data->meal_lock);
+	sem_unlink("/meal");
+	sem_close(data->death_lock);
+	sem_unlink("/death");
 }

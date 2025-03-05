@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:39:35 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/04 12:39:50 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:47:50 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,77 +24,70 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-# define ALIVE 0
-# define DEAD 1
-# define FULL 2
-
-typedef struct s_args
-{
-	sem_t		*forks;
-	sem_t		*stop;
-	sem_t		*full;
-	sem_t		*exit;
-	int			full_philos;
-	int			number_of_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
-}	t_args;
+# define STOP 0
+# define CONTINUE 1
 
 typedef struct s_philo
 {
 	int				id;
-	int				state;
-	int				number_of_meals;
-	struct timeval	last_meal;
+	pid_t			pid;
+	size_t			last_meal;
+	int				total_meals;
+	pthread_t		monitor;
+	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data
 {
-	t_args		*args;
-	t_philo		*philo;
+	int				n_philo;
+	bool			start;
+	size_t			eat_time;
+	size_t			sleep_time;
+	size_t			die_time;
+	int				max_meals;
+	bool			corpse;
+	sem_t			*forks;
+	sem_t			*time_lock;
+	sem_t			*meal_lock;
+	sem_t			*death_lock;
+	sem_t			*exit;
+	t_philo			*philos;
 }	t_data;
 
-/* bonus_monitor.c */
-void	*child_monitor(void *test);
-void	stop_threads(t_args *args, pid_t *pids, pthread_t *threads);
+/*****************************************************************************\
+|*                                Functions                                  *|
+\*****************************************************************************/
 
-/* bonus_utils.c */
+/* checks.c */
+void	check_args(int argc, char *argv[]);
+
+/* init.c */
+void	init_data(t_data *data, int argc, char *argv[]);
+void	start_philos(t_data *data);
+
+/* routine.c */
+void	*philo_life(void *philo);
+
+/* monitor.c */
+void	*child_monitor(void *philo);
+
+/* actions.c */
+int		action_eat(t_philo *p);
+void	action_sleep(t_philo *p);
+void	action_think(t_philo *p);
+
+/* forks.c */
+void	take_forks(t_philo *p);
+void	return_forks(t_philo *p);
+
+/* utils.c */
+int		ft_atoi(const char *nptr);
 size_t	get_current_time(void);
 void	ft_sleep_ms(size_t milliseconds);
-int		ft_atoi(const char *nptr, int *error);
-size_t	get_ms(struct timeval time);
-
-/* bonus_actions.c */
-void	die(int id);
-void	eat(t_data *data);
-void	think(t_data *data);
-void	go_to_sleep(t_data *data);
-
-/* bonus_routine.c */
-void	philosopher_life(t_data *data);
-
-/* bonus_init.c */
-void	allocate_and_init_args(t_args **args, int argc, char *argv[]);
-void	allocate_pids_threads(pid_t **pids, pthread_t **threads, \
-		t_args *args, int number_of_philosophers);
-t_args	*init_args(t_args *args, int argc, char *argv[]);
-void	init_philo(t_philo **philo, int i);
-t_data	*init_data(t_args *args, int i);
-
-/* bonus_clean.c */
-void	free_all(pid_t *pids, pthread_t *threads, t_args *args);
-void	free_args(t_args *args);
-void	free_data(t_data *data);
-void	exit_error_free(char *msg, pid_t *pids, pthread_t *thrd, t_args *args);
-
-/* bonus_print.c */
 void	print_timestamp(int id, char *message);
 void	exit_error(char *message);
 
-/* bonus_forks.c */
-bool	take_forks(sem_t **forks);
-void	return_forks(sem_t **forks);
+/* clean.c */
+void	cleanup(t_data *data);
 
 #endif

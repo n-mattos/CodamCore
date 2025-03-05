@@ -5,45 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:21:47 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/04 11:47:01 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/03/05 16:06:05 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/03/05 16:50:20 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
-static void	routine(t_data *data);
-static void	lonely_routine(t_data *data);
+// static void	start_living(t_philo *p);
+static bool	check_death(t_philo *p);
 
-void	philosopher_life(t_data *data)
+void	*philo_life(void *philo)
 {
-	while (data->philo->state != DEAD)
+	t_philo	*p;
+
+	p = (t_philo *)philo;
+	// start_living(p);
+	sem_wait(p->data->exit);
+	sem_wait(p->data->meal_lock);
+	p->last_meal = get_current_time();
+	sem_post(p->data->meal_lock);
+	if (p->id % 2)
+		ft_sleep_ms(p->data->eat_time * 0.9 + 1);
+	while (1)
 	{
-		if (data->args->number_of_philosophers == 1)
-			lonely_routine(data);
-		else
-			routine(data);
+		if (action_eat(p) == STOP)
+			break ;
+		if (check_death(p))
+			break ;
+		action_sleep(p);
+		if (check_death(p))
+			break ;
+		action_think(p);
 	}
+	sem_post(p->data->exit);
+	return (NULL);
 }
 
-static void	routine(t_data *data)
-{
-	if (data->philo->state != DEAD)
-	{
-		take_forks(&(data->args->forks));
-		eat(data);
-		return_forks(&(data->args->forks));
-		go_to_sleep(data);
-		think(data);
-	}
-}
+// static void	start_living(t_philo *p)
+// {
+// 	while (1)
+// 	{
+// 		sem_wait(p->data->time_lock);
+// 		if (p->data->start)
+// 		{
+// 			sem_post(p->data->time_lock);
+// 			break ;
+// 		}
+// 		sem_post(p->data->time_lock);
+// 		ft_sleep_ms(1);
+// 	}
+// }
 
-static void	lonely_routine(t_data *data)
+static bool	check_death(t_philo *p)
 {
-	if (data->philo->state != DEAD)
+	sem_wait(p->data->death_lock);
+	if (p->data->corpse == true)
 	{
-		print_timestamp(data->philo->id, "is thinking");
-		go_to_sleep(data);
-		data->philo->state = DEAD;
+		sem_post(p->data->death_lock);
+		return (true);
 	}
+	sem_post(p->data->death_lock);
+	return (false);
 }

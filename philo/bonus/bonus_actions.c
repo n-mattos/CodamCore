@@ -5,56 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 15:02:35 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/04 11:50:40 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/03/05 16:09:03 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/03/05 16:50:28 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
-void	die(int id)
+int	action_eat(t_philo *p)
 {
-	print_timestamp(id, "died");
-}
-
-void	eat(t_data *data)
-{
-	gettimeofday(&data->philo->last_meal, NULL);
-	data->philo->number_of_meals++;
-	print_timestamp(data->philo->id, "is eating");
-	if (data->philo->state != FULL)
+	if (p->data->n_philo == 1)
 	{
-		if (data->args->number_of_times_each_philosopher_must_eat != -1
-			&& data->philo->number_of_meals
-			>= data->args->number_of_times_each_philosopher_must_eat)
-		{
-			data->philo->state = FULL;
-			sem_post(data->args->full);
-		}
+		ft_sleep_ms(p->data->die_time);
+		return (STOP);
 	}
-	ft_sleep_ms(data->args->time_to_eat);
+	take_forks(p);
+	sem_wait(p->data->death_lock);
+	if (p->data->corpse == true)
+	{
+		sem_post(p->data->death_lock);
+		return_forks(p);
+		return (STOP);
+	}
+	sem_post(p->data->death_lock);
+	sem_wait(p->data->meal_lock);
+	p->last_meal = get_current_time();
+	p->total_meals++;
+	sem_post(p->data->meal_lock);
+	print_timestamp(p->id, "is eating");
+	ft_sleep_ms(p->data->eat_time);
+	return_forks(p);
+	return (CONTINUE);
 }
 
-void	think(t_data *data)
+void	action_think(t_philo *p)
 {
-	int				think_time;
-	int				time_since_last_meal;
+	int	think_time;
+	int	time_since_last_meal;
 
-	print_timestamp(data->philo->id, "is thinking");
+	print_timestamp(p->id, "is thinking");
 	time_since_last_meal = \
 		(get_current_time() \
-		- get_ms(data->philo->last_meal));
+		- p->last_meal);
 	think_time = \
-		(data->args->time_to_die \
+		(p->data->die_time \
 		- time_since_last_meal \
-		- data->args->time_to_eat) \
+		- p->data->eat_time) \
 		/ 2;
 	if (think_time > 0)
 		ft_sleep_ms(think_time);
 }
 
-void	go_to_sleep(t_data *data)
+void	action_sleep(t_philo *p)
 {
-	print_timestamp(data->philo->id, "is sleeping");
-	ft_sleep_ms(data->args->time_to_sleep);
+	print_timestamp(p->id, "is sleeping");
+	ft_sleep_ms(p->data->sleep_time);
 }

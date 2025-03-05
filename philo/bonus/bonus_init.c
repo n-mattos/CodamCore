@@ -5,109 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:01:15 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/04 13:01:35 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/03/05 15:41:02 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/03/05 16:56:08 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
-void	allocate_pids_threads(pid_t **pids, pthread_t **threads, \
-		t_args *args, int number_of_philosophers)
+static void		init_semaphores(t_data *data);
+static t_philo	*allocate_philos(t_data *data);
+
+void	init_data(t_data *data, int argc, char *argv[])
 {
-	*pids = malloc(sizeof(pid_t) * number_of_philosophers);
-	if (!*pids)
+	data->n_philo = ft_atoi(argv[1]);
+	data->die_time = ft_atoi(argv[2]);
+	data->eat_time = ft_atoi(argv[3]);
+	data->sleep_time = ft_atoi(argv[4]);
+	data->start = false;
+	data->max_meals = -1;
+	if (argc == 6)
+		data->max_meals = ft_atoi(argv[5]);
+	data->corpse = false;
+	init_semaphores(data);
+}
+
+void	start_philos(t_data *data)
+{
+	int	i;
+
+	(*data).philos = allocate_philos(data);
+	i = 0;
+	while (i < data->n_philo)
 	{
-		free(args);
-		exit_error("malloc failed");
+		data->philos[i].pid = fork();
+		if (data->philos[i].pid == 0)
+		{
+			data->philos[i].id = i;
+			data->philos[i].total_meals = 0;
+			data->philos[i].data = data;
+			data->philos[i].last_meal = get_current_time();
+			pthread_create(&data->philos[i].monitor, NULL, &child_monitor, \
+				&data->philos[i]);
+			philo_life(&data->philos[i]);
+			pthread_join(data->philos[i].monitor, NULL);
+			exit(0);
+		}
+		i++;
 	}
-	*threads = malloc(sizeof(pthread_t) * number_of_philosophers);
-	if (!*threads)
+	sem_wait(data->time_lock);
+	data->start = true;
+	sem_post(data->time_lock);
+	ft_sleep_ms(10);
+	// sem_wait(data->exit);
+	// sem_post(data->exit);
+	i = 0;
+	while (i < data->n_philo)
 	{
-		free(args);
-		free(*pids);
-		exit_error("malloc failed");
+		waitpid(data->philos[i].pid, NULL, 0);
+		i++;
 	}
 }
 
-void	allocate_and_init_args(t_args **args, int argc, char *argv[])
+static void	init_semaphores(t_data *data)
 {
-	int	n_philo;
-
-	*args = malloc(sizeof(t_args));
-	if (*args == NULL)
-		exit_error("malloc failed");
-	*args = init_args(*args, argc, argv);
-	if (!*args)
-		exit_error("Invalid Arguments");
-	n_philo = (*args)->number_of_philosophers;
-	sem_unlink("/stop");
-	(*args)->stop = sem_open("/stop", O_CREAT, 0644, n_philo);
-	sem_unlink("/full");
-	(*args)->full = sem_open("/full", O_CREAT, 0644, n_philo);
 	sem_unlink("/forks");
-	(*args)->forks = sem_open("/forks", O_CREAT, 0644, n_philo);
-	if ((*args)->stop == SEM_FAILED
-		|| (*args)->full == SEM_FAILED || (*args)->forks == SEM_FAILED)
-	{
-		free_args(*args);
-		exit_error("sem_open failed");
-	}
+	data->forks = sem_open("/forks", O_CREAT, 0644, data->n_philo);
+	sem_unlink("/time");
+	data->time_lock = sem_open("/time", O_CREAT, 0644, 1);
+	sem_unlink("/meal");
+	data->meal_lock = sem_open("/meal", O_CREAT, 0644, 1);
+	sem_unlink("/death");
+	data->death_lock = sem_open("/death", O_CREAT, 0644, 1);
+	sem_unlink("/exit");
+	data->exit = sem_open("/exit", O_CREAT, 0644, data->n_philo);
 }
 
-t_args	*init_args(t_args *args, int argc, char *argv[])
+static t_philo	*allocate_philos(t_data *data)
 {
-	int		error;
-
-	if (argc < 5 || argc > 6)
-		return (free(args), NULL);
-	args->number_of_philosophers = ft_atoi(argv[1], &error);
-	if (error || args->number_of_philosophers <= 0)
-		return (free(args), NULL);
-	args->time_to_die = ft_atoi(argv[2], &error);
-	if (error || args->time_to_die <= 0)
-		return (free(args), NULL);
-	args->time_to_eat = ft_atoi(argv[3], &error);
-	if (error || args->time_to_eat <= 0)
-		return (free(args), NULL);
-	args->time_to_sleep = ft_atoi(argv[4], &error);
-	if (error || args->time_to_sleep <= 0)
-		return (free(args), NULL);
-	args->number_of_times_each_philosopher_must_eat = -1;
-	if (argc == 5)
-		return (args);
-	args->number_of_times_each_philosopher_must_eat \
-	= ft_atoi(argv[5], &error);
-	if (error || args->number_of_times_each_philosopher_must_eat <= 0)
-		return (free(args), NULL);
-	args->full_philos = 0;
-	return (args);
-}
-
-void	init_philo(t_philo **philo, int i)
-{
-	(*philo)->id = i;
-	(*philo)->state = ALIVE;
-	(*philo)->number_of_meals = 0;
-	gettimeofday(&(*philo)->last_meal, NULL);
-}
-
-t_data	*init_data(t_args *args, int i)
-{
-	t_data	*data;
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (NULL);
-	data->args = args;
-	data->philo = malloc(sizeof(t_philo));
-	if (!data->philo)
-	{
-		free(data);
-		return (NULL);
-	}
-	init_philo(&data->philo, i);
-	sem_wait(data->args->stop);
-	sem_wait(data->args->full);
-	return (data);
+	data->philos = malloc(sizeof(t_philo) * data->n_philo);
+	if (!data->philos)
+		exit_error("malloc failed");
+	return (data->philos);
 }

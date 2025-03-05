@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:23:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 14:20:08 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:42:25 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_data(t_data *data, int argc, char *argv[])
 	data->corpse = false;
 	if (init_mutexes(data) == -1)
 	{
-		printf("Error: mutex init failed\n");
+		printf("Error: mutex initialization failed\n");
 		exit(1);
 	}
 }

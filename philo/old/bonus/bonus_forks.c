@@ -5,21 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 16:11:07 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 16:11:38 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/02/03 16:41:11 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/02/03 17:25:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
-void	take_forks(t_philo *p)
+bool	take_forks(sem_t **forks)
 {
-	sem_wait(p->data->forks);
-	sem_wait(p->data->forks);
+	if (sem_wait((*forks)) == -1)
+		return (false);
+	if (sem_wait((*forks)) == -1)
+	{
+		sem_post((*forks));
+		return (false);
+	}
+	return (true);
 }
 
-void	return_forks(t_philo *p)
+void	return_forks(sem_t **forks)
 {
-	sem_post(p->data->forks);
-	sem_post(p->data->forks);
+	sem_post((*forks));
+	sem_post((*forks));
 }

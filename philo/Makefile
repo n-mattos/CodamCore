@@ -1,7 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
-
+CFLAGS = -Wall -Werror -Wextra -g
 # Source files and object files
 SRC_DIR = sources
 SRCS =	$(SRC_DIR)/main.c \
@@ -22,8 +21,8 @@ BNS =	$(BNS_DIR)/bonus_main.c \
 		$(BNS_DIR)/bonus_init.c \
 		$(BNS_DIR)/bonus_actions.c \
 		$(BNS_DIR)/bonus_routine.c \
-		$(BNS_DIR)/bonus_print.c \
-		$(BNS_DIR)/bonus_forks.c
+		$(BNS_DIR)/bonus_forks.c \
+		$(BNS_DIR)/bonus_checks.c
 
 OBJ_DIR = objects
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
