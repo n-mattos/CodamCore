@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
 
 # Source files and object files
 SRC_DIR = sources
@@ -9,10 +9,8 @@ SRCS =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/utils.c \
 		$(SRC_DIR)/checks.c \
 		$(SRC_DIR)/init.c \
-		$(SRC_DIR)/init_mutex.c \
 		$(SRC_DIR)/actions.c \
 		$(SRC_DIR)/routine.c \
-		$(SRC_DIR)/print.c \
 		$(SRC_DIR)/forks.c \
 		$(SRC_DIR)/monitor.c \
 

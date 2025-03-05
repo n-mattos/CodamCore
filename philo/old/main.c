@@ -6,11 +6,11 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:23:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/02/17 13:36:11 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:11:01 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philosophers.h"
 
 static t_data	*execute_threads(t_args *args, pthread_t *threads, \
 		t_forks *forks, bool *escape);
