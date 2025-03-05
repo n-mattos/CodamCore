@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:01:06 by nmattos           #+#    #+#             */
-/*   Updated: 2025/03/05 14:37:28 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:27:23 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-#define STOP 0
-#define CONTINUE 1
+# define STOP 0
+# define CONTINUE 1
 
 typedef struct s_philo
 {
