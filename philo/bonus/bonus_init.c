@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bonus_init.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 15:41:02 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 16:56:08 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   bonus_init.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/03/05 15:41:02 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/03/09 11:55:47 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,23 @@ void	start_philos(t_data *data)
 				&data->philos[i]);
 			philo_life(&data->philos[i]);
 			pthread_join(data->philos[i].monitor, NULL);
-			exit(0);
+			exit(1);
 		}
 		i++;
 	}
 	sem_wait(data->time_lock);
 	data->start = true;
 	sem_post(data->time_lock);
-	ft_sleep_ms(10);
+	// ft_sleep_ms(10);
 	// sem_wait(data->exit);
 	// sem_post(data->exit);
-	i = 0;
-	while (i < data->n_philo)
-	{
-		waitpid(data->philos[i].pid, NULL, 0);
-		i++;
-	}
+	
+	// i = 0;
+	// while (i < data->n_philo)
+	// {
+	// 	waitpid(data->philos[i].pid, NULL, 0);
+	// 	i++;
+	// }
 }
 
 static void	init_semaphores(t_data *data)

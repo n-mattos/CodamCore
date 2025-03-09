@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bonus_routine.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 16:06:05 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 16:50:20 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   bonus_routine.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/03/05 16:06:05 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/03/09 11:53:21 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bonus_philosophers.h"
 
 // static void	start_living(t_philo *p);
-static bool	check_death(t_philo *p);
+// static bool	check_death(t_philo *p);
 
 void	*philo_life(void *philo)
 {
@@ -31,11 +31,11 @@ void	*philo_life(void *philo)
 	{
 		if (action_eat(p) == STOP)
 			break ;
-		if (check_death(p))
-			break ;
+		// if (check_death(p))
+		// 	break ;
 		action_sleep(p);
-		if (check_death(p))
-			break ;
+		// if (check_death(p))
+		// 	break ;
 		action_think(p);
 	}
 	sem_post(p->data->exit);
@@ -57,14 +57,14 @@ void	*philo_life(void *philo)
 // 	}
 // }
 
-static bool	check_death(t_philo *p)
-{
-	sem_wait(p->data->death_lock);
-	if (p->data->corpse == true)
-	{
-		sem_post(p->data->death_lock);
-		return (true);
-	}
-	sem_post(p->data->death_lock);
-	return (false);
-}
+// static bool	check_death(t_philo *p)
+// {
+// 	sem_wait(p->data->death_lock);
+// 	if (p->data->corpse == true)
+// 	{
+// 		sem_post(p->data->death_lock);
+// 		return (true);
+// 	}
+// 	sem_post(p->data->death_lock);
+// 	return (false);
+// }
