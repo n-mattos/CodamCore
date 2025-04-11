@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/11 11:21:16 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:42:26 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	*run_monitor(void *data)
 		if (corpse_found(data) || finished_eating(data))
 			break ;
 		ft_sleep_ms(1);
-		// usleep(500);
 	}
 	return (NULL);
 }
