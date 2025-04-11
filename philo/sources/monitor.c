@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 15:23:47 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:09:08 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ static void	*run_monitor(void *data)
 
 	data_ptr = (t_data *)data;
 	i = 0;
-	ft_sleep_ms(data_ptr->n_philo / 3 + 10);
+	ft_sleep_ms(data_ptr->n_philo / 3 + 15);
 	while (1)
 	{
 		if (corpse_found(data) || finished_eating(data))
 			break ;
-		ft_sleep_ms(5);
+		ft_sleep_ms(1);
+		// usleep(500);
 	}
 	return (NULL);
 }
