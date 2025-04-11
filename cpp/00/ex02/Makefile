@@ -1,0 +1,36 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/07 11:33:22 by nmattos           #+#    #+#              #
+#    Updated: 2025/04/09 14:55:54 by nmattos-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+NAME = Account
+SRC = Account.cpp \
+	  tests.cpp
+OBJ = $(SRC:.cpp=.o)
+CXX = c++
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
