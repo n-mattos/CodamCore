@@ -6,7 +6,7 @@
 /*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/07 11:43:08 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/07 13:14:16 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/12 11:51:37 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ Phonebook	add(Phonebook book)
 	std::string	phone = get_input();
 	std::cout << "Secret\n>> ";
 	std::string	secret = get_input();
+	std::cout << "New contact has been added\n";
 
 	Contact new_contact(firstname, lastname, nickname, phone, secret);
 	book.addContact(new_contact);
