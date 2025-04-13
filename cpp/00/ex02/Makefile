@@ -1,16 +1,16 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/07 11:33:22 by nmattos           #+#    #+#              #
-#    Updated: 2025/04/09 14:55:54 by nmattos-         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: nmattos- <nmattos-@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2025/04/07 11:33:22 by nmattos       #+#    #+#                  #
+#    Updated: 2025/04/13 08:51:17 by nmattos       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = Account
 SRC = Account.cpp \
 	  tests.cpp
