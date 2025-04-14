@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/11 11:42:26 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:27:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static bool	corpse_found(t_data *data)
 			if (data->corpse == false)
 			{
 				data->corpse = true;
-				print_timestamp(data->philos[i].id, "died");
+				print_timestamp(data->start_time, data->philos[i].id, "died");
 			}
 			pthread_mutex_unlock(&data->death_lock);
 			return (true);

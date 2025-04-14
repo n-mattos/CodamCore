@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:51:23 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:18:20 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:25:49 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	action_eat(t_philo *p)
 	p->last_meal = get_current_time();
 	p->total_meals++;
 	pthread_mutex_unlock(&p->data->meal_lock);
-	print_timestamp(p->id, "is eating");
+	print_timestamp(p->data->start_time, p->id, "is eating");
 	ft_sleep_ms(p->data->eat_time);
 	return_forks(p);
 	return (CONTINUE);
@@ -41,6 +41,6 @@ int	action_eat(t_philo *p)
 
 void	action_sleep(t_philo *p)
 {
-	print_timestamp(p->id, "is sleeping");
+	print_timestamp(p->data->start_time, p->id, "is sleeping");
 	ft_sleep_ms(p->data->sleep_time);
 }

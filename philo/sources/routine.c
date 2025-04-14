@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:43:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:18:06 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:27:33 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	*philo_life(void *philo)
 
 	p = (t_philo *)philo;
 	start_living(p);
-	print_timestamp(p->id, "living");
 	pthread_mutex_lock(&p->data->meal_lock);
 	p->last_meal = get_current_time();
 	pthread_mutex_unlock(&p->data->meal_lock);
@@ -36,7 +35,7 @@ void	*philo_life(void *philo)
 		action_sleep(p);
 		if (check_death(p))
 			break ;
-		print_timestamp(p->id, "is thinking");
+		print_timestamp(p->data->start_time, p->id, "is thinking");
 	}
 	return (NULL);
 }

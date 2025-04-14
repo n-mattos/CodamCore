@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:01:06 by nmattos           #+#    #+#             */
-/*   Updated: 2025/04/14 12:18:17 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:25:48 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 {
 	int				n_philo;
 	bool			start;
+	size_t			start_time;
 	size_t			eat_time;
 	size_t			sleep_time;
 	size_t			die_time;
@@ -80,7 +81,7 @@ void	return_forks(t_philo *p);
 int		ft_atoi(const char *nptr);
 size_t	get_current_time(void);
 void	ft_sleep_ms(size_t milliseconds);
-void	print_timestamp(int id, char *message);
+void	print_timestamp(size_t start_time, int id, char *message);
 void	exit_error(char *message);
 
 /* clean.c */

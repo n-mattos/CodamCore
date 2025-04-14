@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:23:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 15:42:25 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:24:47 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	start_philos(t_data *data)
 		printf("Error: malloc failed\n");
 		exit(1);
 	}
+	data->start_time = get_current_time();
 	i = 0;
 	while (i < data->n_philo)
 	{

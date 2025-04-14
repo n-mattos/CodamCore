@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:45:15 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:19:39 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:29:12 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,9 @@ void	ft_sleep_ms(size_t milliseconds)
 		usleep(100);
 }
 
-void	print_timestamp(int id, char *message)
+void	print_timestamp(size_t start_time, int id, char *message)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	printf("%.3ld %d %s\n", time.tv_usec / 1000, id, message);
+	printf("%ld\t%d %s\n", get_current_time() - start_time, id, message);
 }
 
 void	exit_error(char *message)
