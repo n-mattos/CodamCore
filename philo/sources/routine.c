@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:43:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/11 11:44:14 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:18:06 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*philo_life(void *philo)
 		action_sleep(p);
 		if (check_death(p))
 			break ;
-		action_think(p);
+		print_timestamp(p->id, "is thinking");
 	}
 	return (NULL);
 }

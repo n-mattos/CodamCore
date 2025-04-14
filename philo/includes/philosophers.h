@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:01:06 by nmattos           #+#    #+#             */
-/*   Updated: 2025/03/05 15:27:23 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:18:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	start_monitor(t_data *data);
 /* actions.c */
 int		action_eat(t_philo *p);
 void	action_sleep(t_philo *p);
-void	action_think(t_philo *p);
 
 /* forks.c */
 void	take_forks(t_philo *p);
