@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:43:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:35:18 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:08:24 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*philo_life(void *philo)
 	p->last_meal = get_current_time();
 	pthread_mutex_unlock(&p->data->meal_lock);
 	if (p->id % 2)
-		ft_sleep_ms(p->data->eat_time * 0.9 + 1);
+		ft_sleep_ms(p->data->eat_time * 0.5);
 	while (1)
 	{
 		if (action_eat(p) == STOP)
