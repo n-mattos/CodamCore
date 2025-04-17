@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:27:17 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/03 12:12:25 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   checks.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 12:27:17 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 11:03:43 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static void	check_args_values(int argc, char *argv[]);
 static bool	ft_isdigit(char c);
 
-void	check_args(int argc, char *argv[])
-{
-	if (argc != 5 && argc != 6)
-		exit_error("wrong number of arguments");
-	check_args_values(argc, argv);
-}
-
-static void	check_args_values(int argc, char *argv[])
+int	check_args(int argc, char *argv[])
 {
 	int	i;
 	int	j;
 
+	if (argc != 5 && argc != 6)
+	{
+		printf("wrong number of arguments");
+		return (FAIL);
+	}
 	i = 1;
 	while (i < argc)
 	{
@@ -34,11 +31,15 @@ static void	check_args_values(int argc, char *argv[])
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
-				exit_error("arguments must only consist of digits");
+			{
+				printf("arguments must only consist of digits");
+				return (FAIL);
+			}
 			j++;
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
 static bool	ft_isdigit(char c)

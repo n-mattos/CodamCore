@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 16:51:23 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:25:49 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   actions.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 16:51:23 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 15:33:54 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,56 @@
 
 int	action_eat(t_philo *p)
 {
-	if (p->data->n_philo == 1)
+	if (take_forks(p) == STOP)
 	{
-		ft_sleep_ms(p->data->die_time);
 		return (STOP);
 	}
-	take_forks(p);
-	pthread_mutex_lock(&p->data->meal_lock);
-	pthread_mutex_lock(&p->data->death_lock);
-	if (p->data->corpse == true)
+	pthread_mutex_lock(&p->card);
+	if (check_death(p))
 	{
-		pthread_mutex_unlock(&p->data->meal_lock);
-		pthread_mutex_unlock(&p->data->death_lock);
+		pthread_mutex_unlock(&p->card);
 		return_forks(p);
 		return (STOP);
 	}
-	pthread_mutex_unlock(&p->data->death_lock);
 	p->last_meal = get_current_time();
 	p->total_meals++;
-	pthread_mutex_unlock(&p->data->meal_lock);
-	print_timestamp(p->data->start_time, p->id, "is eating");
-	ft_sleep_ms(p->data->eat_time);
+	pthread_mutex_unlock(&p->card);
+	print_timestamp(p, "is eating");
+	if (ft_sleep_ms(p, p->data->eat_time) == STOP)
+	{
+		return_forks(p);
+		return (STOP);
+	}
 	return_forks(p);
+	if (p->total_meals == p->data->max_meals)
+	{
+		pthread_mutex_lock(&p->data->meal_lock);
+		p->data->full_philos += 1;
+		pthread_mutex_unlock(&p->data->meal_lock);
+	}
 	return (CONTINUE);
 }
 
-void	action_sleep(t_philo *p)
+int		action_sleep(t_philo *p)
 {
-	print_timestamp(p->data->start_time, p->id, "is sleeping");
-	ft_sleep_ms(p->data->sleep_time);
+	print_timestamp(p, "is sleeping");
+	if (ft_sleep_ms(p, p->data->sleep_time) == STOP)
+		return (STOP);
+	return (CONTINUE);
+}
+
+int		action_think(t_philo *p)
+{
+	int	pondering_time;
+
+	print_timestamp(p, "is thinking");
+	pthread_mutex_lock(&p->card);
+	pondering_time = p->data->die_time - (get_current_time() - p->last_meal);
+	// pondering_time = p->data->eat_time - p->data->sleep_time;
+	// printf("<%d>\n", pondering_time);
+	pthread_mutex_unlock(&p->card);
+	if (pondering_time > 0)
+		if (ft_sleep_ms(p, pondering_time) == STOP)
+			return (STOP);
+	return (CONTINUE);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:45:15 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:29:12 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/10 12:45:15 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 15:20:03 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,15 @@
 int	ft_atoi(const char *nptr)
 {
 	long int	sum;
-	int			sign;
 
 	sum = 0;
-	sign = 1;
-	if ((*nptr >= '\t' && *nptr <= '\r') || *nptr == ' ')
-		return (0);
-	if (*nptr == '+' || *nptr == '-')
-		if (*(nptr++) == '-')
-			sign *= -1;
-	while (*nptr >= '0' && *nptr <= '9' && sum < 2147483648)
+	while (*nptr >= '0' && *nptr <= '9')
+	{
 		sum = (sum * 10) + (*(nptr++) - 48);
-	if (sign == -1)
-		if (sum > 2147483648)
-			return (0);
-	if (sign != -1)
-		if (sum > 2147483647)
-			return (0);
-	if (*nptr != '\0')
-		return (0);
-	return (sum * sign);
+		if (sum > INT_MAX)
+			return (-1);
+	}
+	return (sum);
 }
 
 size_t	get_current_time(void)
@@ -45,7 +34,26 @@ size_t	get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	ft_sleep_ms(size_t milliseconds)
+int		ft_sleep_ms(t_philo *p, size_t milliseconds)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+	{
+		pthread_mutex_lock(&p->card);
+		if (check_death(p))
+		{
+			pthread_mutex_unlock(&p->card);
+			return (STOP);
+		}
+		pthread_mutex_unlock(&p->card);
+		usleep(100);
+	}
+	return (CONTINUE);
+}
+
+void	ft_sleep_process_ms(size_t milliseconds)
 {
 	size_t	start;
 
@@ -54,13 +62,15 @@ void	ft_sleep_ms(size_t milliseconds)
 		usleep(100);
 }
 
-void	print_timestamp(size_t start_time, int id, char *message)
+void	print_timestamp(t_philo *p, char *message)
 {
-	printf("%ld\t%d %s\n", get_current_time() - start_time, id, message);
-}
-
-void	exit_error(char *message)
-{
-	printf("Error: %s\n", message);
-	exit(1);
+	pthread_mutex_lock(&p->data->print_lock);
+	if (check_death(p))
+	{
+		pthread_mutex_unlock(&p->data->print_lock);
+		return ;
+	}
+	printf("%ld\t%d %s\n",
+		get_current_time() - p->data->start_time,p->id, message);
+	pthread_mutex_unlock(&p->data->print_lock);
 }

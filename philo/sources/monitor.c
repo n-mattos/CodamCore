@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 12:27:13 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   monitor.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/03/05 13:44:13 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 15:34:45 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 static bool	corpse_found(t_data *data);
 static bool	finished_eating(t_data *data);
-static void	*run_monitor(void *data);
 
-void	start_monitor(t_data *data)
-{
-	pthread_create(&data->monitor, NULL, &run_monitor, data);
-}
-
-static void	*run_monitor(void *data)
+void	run_monitor(void *data)
 {
 	t_data	*data_ptr;
-	int		i;
 
 	data_ptr = (t_data *)data;
-	i = 0;
-	ft_sleep_ms(data_ptr->n_philo / 3 + 15);
+	ft_sleep_process_ms(data_ptr->n_philo / 3 + 15);
+	if (data_ptr->max_meals == -1)
+	{
+		while (1)
+		{
+			if (corpse_found(data))
+				return ;
+			ft_sleep_process_ms(1);
+		}
+	}
 	while (1)
 	{
-		if (corpse_found(data) || finished_eating(data))
-			break ;
-		ft_sleep_ms(1);
+		if (corpse_found(data_ptr) || finished_eating(data_ptr))
+			return ;
+		ft_sleep_process_ms(1);
 	}
-	return (NULL);
 }
 
 static bool	corpse_found(t_data *data)
@@ -46,18 +46,27 @@ static bool	corpse_found(t_data *data)
 	i = 0;
 	while (i < data->n_philo)
 	{
-		pthread_mutex_lock(&data->meal_lock);
+		pthread_mutex_lock(&data->philos[i].card);
 		delta_meal_time = (get_current_time() - data->philos[i].last_meal);
-		pthread_mutex_unlock(&data->meal_lock);
+		pthread_mutex_unlock(&data->philos[i].card);
+
 		if (delta_meal_time > (int)data->die_time)
 		{
-			pthread_mutex_lock(&data->death_lock);
-			if (data->corpse == false)
+			pthread_mutex_lock(&data->print_lock);
+			printf("%ld\t%d %s\n", get_current_time() - data->start_time,
+				data->philos[i].id, "died");
+			pthread_mutex_unlock(&data->print_lock);
+
+
+			i = 0;
+			while (i < data->n_philo)
 			{
-				data->corpse = true;
-				print_timestamp(data->start_time, data->philos[i].id, "died");
+				pthread_mutex_lock(&data->philos[i].card);
+				data->philos[i].state = DEAD;
+				pthread_mutex_unlock(&data->philos[i].card);
+				i++;
 			}
-			pthread_mutex_unlock(&data->death_lock);
+
 			return (true);
 		}
 		i++;
@@ -69,23 +78,23 @@ static bool	finished_eating(t_data *data)
 {
 	int	i;
 
-	i = 0;
 	if (data->max_meals == -1)
 		return (false);
-	while (i < data->n_philo)
+	pthread_mutex_lock(&data->meal_lock);
+	if (data->full_philos >= data->max_meals)
 	{
-		pthread_mutex_lock(&data->meal_lock);
-		if (data->philos[i].total_meals < data->max_meals)
-		{
-			pthread_mutex_unlock(&data->meal_lock);
-			return (false);
-		}
 		pthread_mutex_unlock(&data->meal_lock);
-		i++;
+		i = 0;
+		while (i < data->n_philo)
+		{
+			pthread_mutex_lock(&data->philos[i].card);
+			data->philos[i].state = DEAD;
+			pthread_mutex_unlock(&data->philos[i].card);
+			i++;
+		}
+		return (true);
 	}
-	pthread_mutex_lock(&data->death_lock);
-	if (data->corpse == false)
-		data->corpse = true;
-	pthread_mutex_unlock(&data->death_lock);
-	return (true);
+	pthread_mutex_unlock(&data->meal_lock);
+
+	return (false);
 }

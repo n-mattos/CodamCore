@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 12:58:29 by nmattos           #+#    #+#             */
-/*   Updated: 2025/03/05 14:34:40 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/27 12:58:29 by nmattos       #+#    #+#                 */
+/*   Updated: 2025/04/17 15:20:08 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	check_args(argc, argv);
-	init_data(&data, argc, argv);
-	start_philos(&data);
-	start_monitor(&data);
+	if (check_args(argc, argv) == FAIL)
+		return (1);
+	if (init_data(&data, argc, argv) == FAIL)
+		return (1);
+	if (start_philos(&data) == FAIL)
+	{
+		cleanup(&data);
+		return (1);
+	}
+	run_monitor(&data);
 	cleanup(&data);
 	return (0);
 }

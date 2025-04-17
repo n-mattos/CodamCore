@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 13:01:06 by nmattos           #+#    #+#             */
-/*   Updated: 2025/04/14 12:25:48 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   philosophers.h                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/27 13:01:06 by nmattos       #+#    #+#                 */
+/*   Updated: 2025/04/17 14:06:29 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,17 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <limits.h>
+# include <string.h>
 
 # define STOP 0
 # define CONTINUE 1
+
+# define SUCCESS 0
+# define FAIL 1
+
+# define ALIVE 0
+# define DEAD 1
 
 typedef struct s_philo
 {
@@ -30,7 +38,9 @@ typedef struct s_philo
 	int				rf;
 	size_t			last_meal;
 	int				total_meals;
+	int				state;
 	pthread_t		thread;
+	pthread_mutex_t	card;
 	struct s_data	*data;
 }	t_philo;
 
@@ -38,17 +48,17 @@ typedef struct s_data
 {
 	int				n_philo;
 	bool			start;
-	size_t			start_time;
-	size_t			eat_time;
-	size_t			sleep_time;
-	size_t			die_time;
+	ssize_t			start_time;
+	ssize_t			eat_time;
+	ssize_t			sleep_time;
+	ssize_t			die_time;
 	int				max_meals;
+	int				full_philos;
 	bool			corpse;
-	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	time_lock;
+	pthread_mutex_t	print_lock;
 	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	death_lock;
 	t_philo			*philos;
 }	t_data;
 
@@ -57,32 +67,34 @@ typedef struct s_data
 \*****************************************************************************/
 
 /* checks.c */
-void	check_args(int argc, char *argv[]);
+int		check_args(int argc, char *argv[]);
 
 /* init.c */
-void	init_data(t_data *data, int argc, char *argv[]);
-void	start_philos(t_data *data);
+int		init_data(t_data *data, int argc, char *argv[]);
+int		start_philos(t_data *data);
 
 /* routine.c */
 void	*philo_life(void *philo);
+bool	check_death(t_philo *p);
 
 /* monitor.c */
-void	start_monitor(t_data *data);
+void	run_monitor(void *data);
 
 /* actions.c */
 int		action_eat(t_philo *p);
-void	action_sleep(t_philo *p);
+int		action_sleep(t_philo *p);
+int		action_think(t_philo *p);
 
 /* forks.c */
-void	take_forks(t_philo *p);
+int		take_forks(t_philo *p);
 void	return_forks(t_philo *p);
 
 /* utils.c */
 int		ft_atoi(const char *nptr);
 size_t	get_current_time(void);
-void	ft_sleep_ms(size_t milliseconds);
-void	print_timestamp(size_t start_time, int id, char *message);
-void	exit_error(char *message);
+int		ft_sleep_ms(t_philo *p, size_t milliseconds);
+void	ft_sleep_process_ms(size_t milliseconds);
+void	print_timestamp(t_philo *p, char *message);
 
 /* clean.c */
 void	cleanup(t_data *data);

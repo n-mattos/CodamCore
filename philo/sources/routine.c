@@ -1,68 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 12:43:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 14:08:24 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   routine.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/03/03 12:43:36 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 15:30:29 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-static void	start_living(t_philo *p);
-static bool	check_death(t_philo *p);
 
 void	*philo_life(void *philo)
 {
 	t_philo	*p;
 
 	p = (t_philo *)philo;
-	start_living(p);
-	pthread_mutex_lock(&p->data->meal_lock);
-	p->last_meal = get_current_time();
-	pthread_mutex_unlock(&p->data->meal_lock);
-	if (p->id % 2)
-		ft_sleep_ms(p->data->eat_time * 0.5);
+	pthread_mutex_lock(&p->data->time_lock);
+	if (p->data->start == false)
+	{
+		return (NULL);
+	}
+	pthread_mutex_unlock(&p->data->time_lock);
+	if (p->data->n_philo == 1)
+		return (ft_sleep_ms(p, p->data->die_time), NULL);
+	if (p->id % 2 == 0)
+		ft_sleep_ms(p, p->data->eat_time * 0.5);
 	while (1)
 	{
 		if (action_eat(p) == STOP)
 			break ;
 		if (check_death(p))
 			break ;
-		action_sleep(p);
+		if (action_sleep(p) == STOP)
+			break ;
 		if (check_death(p))
 			break ;
-		print_timestamp(p->data->start_time, p->id, "is thinking");
+		if (action_think(p) == STOP)
+			break ;
+		if (check_death(p))
+			break ;
 	}
 	return (NULL);
 }
 
-static void	start_living(t_philo *p)
+bool	check_death(t_philo *p)
 {
-	while (1)
-	{
-		pthread_mutex_lock(&p->data->time_lock);
-		if (p->data->start)
-		{
-			pthread_mutex_unlock(&p->data->time_lock);
-			break ;
-		}
-		pthread_mutex_unlock(&p->data->time_lock);
-		ft_sleep_ms(1);
-	}
-}
+	int	delta_meal_time;
 
-static bool	check_death(t_philo *p)
-{
-	pthread_mutex_lock(&p->data->death_lock);
-	if (p->data->corpse == true)
+	delta_meal_time = (get_current_time() - p->last_meal);
+	if (delta_meal_time > (int)p->data->die_time || p->state == DEAD)
 	{
-		pthread_mutex_unlock(&p->data->death_lock);
+		p->state = DEAD;
 		return (true);
 	}
-	pthread_mutex_unlock(&p->data->death_lock);
 	return (false);
 }

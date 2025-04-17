@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 13:44:57 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/03/05 14:37:51 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   clean.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/03/05 13:44:57 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/04/17 14:17:08 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	wait_for_threads(t_data *data)
 {
 	int	i;
 
-	pthread_join(data->monitor, NULL);
 	i = 0;
 	while (i < data->n_philo)
 	{
@@ -37,10 +36,15 @@ static void	wait_for_threads(t_data *data)
 
 static void	free_data(t_data *data)
 {
-	free(data->philos);
+	int	i;
+
 	pthread_mutex_destroy(&data->time_lock);
 	pthread_mutex_destroy(&data->meal_lock);
-	pthread_mutex_destroy(&data->death_lock);
+	pthread_mutex_destroy(&data->print_lock);
+	i = 0;
+	while (i < data->n_philo)
+		pthread_mutex_destroy(&data->philos[i++].card);
+	free(data->philos);
 	free_forks(data);
 }
 
