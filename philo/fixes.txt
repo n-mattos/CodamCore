@@ -1,0 +1,43 @@
+~	print_timestamp:
+		-lock using mutex, to prevent prints from overlapping
+		-check if dead
+
+~	philo id starts at 1
+
+~	check_death in ft_sleep_ms
+
+~	remove all exit() calls
+
+~	overflow protection on atoi()
+
+~	protect pthread_create. Use a bool for starting program;
+~	false means threads instantly quit
+~	true means threads start normally
+
+~	start_philos lock the "start" mutex before the thread creation
+
+~	memset the struct; wont need to set everything to false/0
+
+~	one mutex per philo, instead of multiple globals
+
+~	max meals using int;
+	when philo has eaten enough, ++
+	monitor checks if full == n_philo
+
+~	1 philo check before the routine loop, not in action_eat
+
+~	print "has taken a fork"
+
+~	death check;
+	monitor kills all philo if one is dead.
+	philo only check themselves, not a global
+	remove global death
+
+add a think time function, ./philo 3 700 200 100
+
+entire repository must be in philo folder
+
+dont round off current_time function instantly. Round at printing
+
+take/return_forks();
+place the if-else in the initialisation instead of here
