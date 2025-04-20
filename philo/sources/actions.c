@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 16:51:23 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/17 15:33:54 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/20 10:11:56 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ int		action_think(t_philo *p)
 
 	print_timestamp(p, "is thinking");
 	pthread_mutex_lock(&p->card);
-	pondering_time = p->data->die_time - (get_current_time() - p->last_meal);
-	// pondering_time = p->data->eat_time - p->data->sleep_time;
-	// printf("<%d>\n", pondering_time);
+	pondering_time = (p->data->eat_time * (p->data->n_philo % 2 + 2))
+		- (get_current_time() - p->last_meal);
 	pthread_mutex_unlock(&p->card);
 	if (pondering_time > 0)
 		if (ft_sleep_ms(p, pondering_time) == STOP)
