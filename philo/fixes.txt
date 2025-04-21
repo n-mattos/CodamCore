@@ -33,9 +33,9 @@
 	philo only check themselves, not a global
 	remove global death
 
-add a think time function, ./philo 3 700 200 100
+~	add a think time function, ./philo 3 700 200 100
 
-entire repository must be in philo folder
+~	entire repository must be in philo folder
 
 dont round off current_time function instantly. Round at printing
 
