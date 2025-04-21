@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/03 12:43:36 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 09:59:01 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:36:01 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ bool	check_death(t_philo *p)
 {
 	int	delta_meal_time;
 
+	pthread_mutex_lock(&p->card);
 	delta_meal_time = (get_current_time() - p->last_meal);
 	if (delta_meal_time > (int)p->data->die_time || p->state == DEAD)
 	{
 		p->state = DEAD;
+		pthread_mutex_unlock(&p->card);
 		return (true);
 	}
+	pthread_mutex_unlock(&p->card);
 	return (false);
 }
 

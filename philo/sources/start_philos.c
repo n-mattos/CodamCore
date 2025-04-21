@@ -6,7 +6,7 @@
 /*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:10:50 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/21 10:18:22 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:37:02 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ static int	init_philo(t_data *data, int i)
 {
 	memset(&data->philos[i], 0, sizeof(t_philo));
 	data->philos[i].id = i + 1;
-	data->philos[i].lf = i;
-	data->philos[i].rf = (i + 1) % data->n_philo;
+	if (i > ((i + 1) % data->n_philo))
+	{
+		data->philos[i].lf = i;
+		data->philos[i].rf = (i + 1) % data->n_philo;
+	}
+	else
+	{
+		data->philos[i].lf = (i + 1) % data->n_philo;
+		data->philos[i].rf = i;
+	}
 	data->philos[i].data = data;
 	if (pthread_mutex_init(&data->philos[i].card, NULL) == -1)
 	{

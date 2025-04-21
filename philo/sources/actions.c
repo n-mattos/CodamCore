@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 16:51:23 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:01:02 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:37:47 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ int	action_eat(t_philo *p)
 	if (take_forks(p) == STOP)
 		return (STOP);
 	pthread_mutex_lock(&p->card);
-	if (check_death(p))
-	{
-		pthread_mutex_unlock(&p->card);
-		return_forks(p);
-		return (STOP);
-	}
 	p->last_meal = get_current_time();
 	p->total_meals++;
 	pthread_mutex_unlock(&p->card);

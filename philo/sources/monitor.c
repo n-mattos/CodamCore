@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/05 13:44:13 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:06:50 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:32:58 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ static bool	corpse_found(t_data *data)
 	return (false);
 }
 
+static bool	finished_eating(t_data *data)
+{
+	if (data->max_meals == -1)
+		return (false);
+	pthread_mutex_lock(&data->meal_lock);
+	if (data->full_philos >= data->max_meals)
+	{
+		pthread_mutex_unlock(&data->meal_lock);
+		massacre(data);
+		return (true);
+	}
+	pthread_mutex_unlock(&data->meal_lock);
+
+	return (false);
+}
+
 static void	massacre(t_data *data)
 {
 	int	i;
@@ -76,29 +92,4 @@ static void	massacre(t_data *data)
 		pthread_mutex_unlock(&data->philos[i].card);
 		i++;
 	}
-}
-
-static bool	finished_eating(t_data *data)
-{
-	int	i;
-
-	if (data->max_meals == -1)
-		return (false);
-	pthread_mutex_lock(&data->meal_lock);
-	if (data->full_philos >= data->max_meals)
-	{
-		pthread_mutex_unlock(&data->meal_lock);
-		i = 0;
-		while (i < data->n_philo)
-		{
-			pthread_mutex_lock(&data->philos[i].card);
-			data->philos[i].state = DEAD;
-			pthread_mutex_unlock(&data->philos[i].card);
-			i++;
-		}
-		return (true);
-	}
-	pthread_mutex_unlock(&data->meal_lock);
-
-	return (false);
 }

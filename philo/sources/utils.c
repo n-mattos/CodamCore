@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/10 12:45:15 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/17 15:20:03 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:35:19 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int		ft_sleep_ms(t_philo *p, size_t milliseconds)
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)
 	{
-		pthread_mutex_lock(&p->card);
+		// pthread_mutex_lock(&p->card);
 		if (check_death(p))
 		{
-			pthread_mutex_unlock(&p->card);
+			// pthread_mutex_unlock(&p->card);
 			return (STOP);
 		}
-		pthread_mutex_unlock(&p->card);
+		// pthread_mutex_unlock(&p->card);
 		usleep(100);
 	}
 	return (CONTINUE);
