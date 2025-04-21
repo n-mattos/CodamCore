@@ -6,13 +6,14 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/05 13:44:13 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:04:36 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:06:50 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
 static bool	corpse_found(t_data *data);
+static void	massacre(t_data *data);
 static bool	finished_eating(t_data *data);
 
 void	run_monitor(void *data)
@@ -49,26 +50,32 @@ static bool	corpse_found(t_data *data)
 		pthread_mutex_lock(&data->philos[i].card);
 		delta_meal_time = (get_current_time() - data->philos[i].last_meal);
 		pthread_mutex_unlock(&data->philos[i].card);
-
 		if (delta_meal_time > (int)data->die_time)
 		{
 			pthread_mutex_lock(&data->print_lock);
 			printf("%ld\t%d %s\n", get_current_time() - data->start_time,
 				data->philos[i].id, "died");
-			i = 0;
-			while (i < data->n_philo)
-			{
-				pthread_mutex_lock(&data->philos[i].card);
-				data->philos[i].state = DEAD;
-				pthread_mutex_unlock(&data->philos[i].card);
-				i++;
-			}
+			massacre(data);
 			pthread_mutex_unlock(&data->print_lock);
 			return (true);
 		}
 		i++;
 	}
 	return (false);
+}
+
+static void	massacre(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_mutex_lock(&data->philos[i].card);
+		data->philos[i].state = DEAD;
+		pthread_mutex_unlock(&data->philos[i].card);
+		i++;
+	}
 }
 
 static bool	finished_eating(t_data *data)
