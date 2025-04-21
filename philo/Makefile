@@ -12,7 +12,8 @@ SRCS =	main.c \
 		actions.c \
 		routine.c \
 		forks.c \
-		monitor.c
+		monitor.c \
+		start_philos.c
 
 OBJ_DIR = objects
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

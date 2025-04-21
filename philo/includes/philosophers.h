@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/27 13:01:06 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/17 14:06:29 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/04/21 10:11:12 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		check_args(int argc, char *argv[]);
 
 /* init.c */
 int		init_data(t_data *data, int argc, char *argv[]);
+
+/* start_philos */
 int		start_philos(t_data *data);
 
 /* routine.c */

@@ -37,7 +37,5 @@
 
 ~	entire repository must be in philo folder
 
-dont round off current_time function instantly. Round at printing
-
 take/return_forks();
 place the if-else in the initialisation instead of here
