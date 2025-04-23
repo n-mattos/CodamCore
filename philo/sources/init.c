@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/03/03 12:23:29 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:10:45 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 12:23:29 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/04/23 10:24:24 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int	init_data(t_data *data, int argc, char *argv[])
 	data->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->max_meals = ft_atoi(argv[5]);
-	if (data->n_philo == -1 || data->die_time == -1 ||
-		data->eat_time == -1 || data->sleep_time == -1 || data->max_meals == -1)
+	if (data->n_philo == -1
+		|| data->die_time == -1
+		|| data->eat_time == -1
+		|| data->sleep_time == -1
+		|| data->max_meals == -1)
 	{
 		printf("Error: given number is too large\n");
 		return (FAIL);

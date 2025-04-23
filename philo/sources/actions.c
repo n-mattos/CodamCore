@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   actions.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 16:51:23 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:37:47 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 16:51:23 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/04/23 10:23:29 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	action_eat(t_philo *p)
 	return (CONTINUE);
 }
 
-int		action_sleep(t_philo *p)
+int	action_sleep(t_philo *p)
 {
 	print_timestamp(p, "is sleeping");
 	if (ft_sleep_ms(p, p->data->sleep_time) == STOP)
@@ -41,7 +41,7 @@ int		action_sleep(t_philo *p)
 	return (CONTINUE);
 }
 
-int		action_think(t_philo *p)
+int	action_think(t_philo *p)
 {
 	int	pondering_time;
 

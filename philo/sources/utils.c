@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 12:45:15 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:35:19 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 12:45:15 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/04/23 10:24:59 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,15 @@ size_t	get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int		ft_sleep_ms(t_philo *p, size_t milliseconds)
+int	ft_sleep_ms(t_philo *p, size_t milliseconds)
 {
 	size_t	start;
 
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)
 	{
-		// pthread_mutex_lock(&p->card);
 		if (check_death(p))
-		{
-			// pthread_mutex_unlock(&p->card);
 			return (STOP);
-		}
-		// pthread_mutex_unlock(&p->card);
 		usleep(100);
 	}
 	return (CONTINUE);
@@ -71,6 +66,6 @@ void	print_timestamp(t_philo *p, char *message)
 		return ;
 	}
 	printf("%ld\t%d %s\n",
-		get_current_time() - p->data->start_time,p->id, message);
+		get_current_time() - p->data->start_time, p->id, message);
 	pthread_mutex_unlock(&p->data->print_lock);
 }

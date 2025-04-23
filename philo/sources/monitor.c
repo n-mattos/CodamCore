@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   monitor.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/03/05 13:44:13 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/04/21 10:32:58 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/04/23 10:22:57 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static bool	finished_eating(t_data *data)
 		return (true);
 	}
 	pthread_mutex_unlock(&data->meal_lock);
-
 	return (false);
 }
 
