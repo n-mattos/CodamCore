@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:44:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/23 10:22:57 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:10:27 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static bool	finished_eating(t_data *data)
 	if (data->max_meals == -1)
 		return (false);
 	pthread_mutex_lock(&data->meal_lock);
-	if (data->full_philos >= data->max_meals)
+	if (data->full_philos >= data->n_philo)
 	{
 		pthread_mutex_unlock(&data->meal_lock);
 		massacre(data);
