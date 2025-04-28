@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   megaphone.cpp                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/04/07 11:17:48 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/07 11:28:16 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 11:17:48 by nmattos           #+#    #+#             */
+/*   Updated: 2025/04/28 10:59:46 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 std::string	shout(std::string input)
 {
-	for (size_t i = 0; i < input.length(); i++) {
-		input[i] = std::toupper(input[i]);
-	}
+	for (char &c : input)
+		c = std::toupper(c);
 	return (input);
 }
 
