@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -pthread #-fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -O3 -flto -pthread #-fsanitize=thread
 
 # Source files and object files
 SRC_DIR = sources
