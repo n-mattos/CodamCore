@@ -1,16 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   contacts.cpp                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/04/07 11:43:08 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/12 11:51:37 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   contacts.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 11:43:08 by nmattos           #+#    #+#             */
+/*   Updated: 2025/04/28 11:05:09 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
+
+Contact::Contact(std::string firstname, std::string lastname, std::string nickname,
+				 std::string phone, std::string secret) {
+	this->firstname = firstname;
+	this->lastname = lastname;
+	this->nickname = nickname;
+	this->phone = phone;
+	this->secret = secret;
+}
+
+void Contact::viewContact(int index) {
+	auto formatField = [](const std::string& field) -> std::string {
+		if (field.length() > 10)
+			return field.substr(0, 9) + ".";
+		else
+			return std::string(10 - field.length(), ' ') + field;
+	};
+	std::cout << "|"
+			  << formatField(std::to_string(index)) << "|"
+			  << formatField(firstname) << "|"
+			  << formatField(lastname) << "|"
+			  << formatField(nickname) << "|" << std::endl;
+}
+
+void Contact::fullContact() {
+	std::cout << "First Name:\t" << firstname << std::endl;
+	std::cout << "Last Name:\t" << lastname << std::endl;
+	std::cout << "Nickname:\t" << nickname << std::endl;
+	std::cout << "Phone:\t\t" << phone << std::endl;
+	std::cout << "Darkest Secret:\t" << secret << std::endl;
+}
 
 void	search(Phonebook book)
 {
