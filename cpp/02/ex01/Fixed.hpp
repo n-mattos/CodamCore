@@ -6,11 +6,12 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:43 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/02 13:17:40 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:58:12 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cmath>
 
 class Fixed
 {
@@ -38,4 +39,4 @@ class Fixed
 // Insertion operator overload;
 // Inserts a floating-point of the fixed-point number into
 // the output stream object passed as a parameter.
-std::ostream &operator<<(std::ostream &out, const Fixed num);
+std::ostream &operator<<(std::ostream &out, const Fixed &num);

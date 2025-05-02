@@ -6,14 +6,15 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:54:57 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/02 13:17:44 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:00:20 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed() : value(0) {
+Fixed::Fixed() {
 	std::cout << "Default constructor called" << std::endl;
+	this->value = 0;
 }
 
 Fixed::Fixed(const Fixed &other) {
@@ -21,13 +22,15 @@ Fixed::Fixed(const Fixed &other) {
 	*this = other;
 }
 
-Fixed::Fixed(const int val) : value(val) {
+Fixed::Fixed(const int val) {
 	std::cout << "Int constructor called" << std::endl;
-	//
+	// this->value = val;
+	this->value = roundf(val * (1 << fractionalbit));
 }
 
-Fixed::Fixed(const float val) : value(val) {
+Fixed::Fixed(const float val) {
 	std::cout << "Float constructor called" << std::endl;
+	this->value = roundf(val * (1 << fractionalbit));
 }
 
 // Copy assignment operator overload
@@ -55,14 +58,14 @@ void	Fixed::setRawBits(int const raw) {
 
 // bit shift
 float	Fixed::toFloat(void) const {
-	return static_cast<float>(value / (1 << fractionalbit));
+	return (static_cast<float>(value) / (1 << fractionalbit));
 }
 
 int		Fixed::toInt(void) const {
 	return (value >> fractionalbit);
 }
 
-std::ostream &operator<<(std::ostream &out, const Fixed num) {
+std::ostream &operator<<(std::ostream &out, const Fixed &num) {
 	out << num.toFloat();
 	return (out);
 }
