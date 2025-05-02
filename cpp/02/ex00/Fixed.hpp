@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 11:01:57 by nmattos           #+#    #+#             */
-/*   Updated: 2025/04/23 14:18:21 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:11:16 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,12 @@ class Fixed
 		int	value;
 		static const int fractionalbit = 8;
 	public:
-		Fixed() : value(0) {
-			std::cout << "Default constructor called" << std::endl;
-		}
+		Fixed();
+		Fixed(const Fixed &other);
 
-		Fixed(const Fixed &other) {
-			std::cout << "Copy constructor called" << std::endl;
-			*this = other;
-		}
+		Fixed &operator=(const Fixed &other);
 
-		Fixed &operator=(const Fixed &other) {
-			std::cout << "Copy assignment operator called" << std::endl;
-			if (this != &other)
-				this->value = other.getRawBits();
-			return (*this);
-		}
-
-		~Fixed() {
-			std::cout << "Destructor called" << std::endl;
-		}
+		~Fixed();
 
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
