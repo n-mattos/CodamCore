@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Fixed.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 13:54:57 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/02 14:00:20 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   Fixed.cpp                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/23 13:54:57 by nmattos-      #+#    #+#                 */
+/*   Updated: 2025/05/05 10:52:40 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Fixed::Fixed(const Fixed &other) {
 
 Fixed::Fixed(const int val) {
 	std::cout << "Int constructor called" << std::endl;
-	// this->value = val;
 	this->value = roundf(val * (1 << fractionalbit));
 }
 
@@ -47,12 +46,10 @@ Fixed::~Fixed() {
 }
 
 int		Fixed::getRawBits(void) const {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (this->value);
 }
 
 void	Fixed::setRawBits(int const raw) {
-	std::cout << "setRawBits member function called" << std::endl;
 	this->value = raw;
 }
 
