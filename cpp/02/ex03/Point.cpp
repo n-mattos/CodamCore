@@ -6,7 +6,7 @@
 /*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 11:34:06 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/08 12:31:53 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/05/18 13:29:52 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ Fixed Point::getx() const {
 	return (this->x);
 }
 
-void	Point::setx(int const x) {
+void	Point::setx(Fixed const x) {
 	this->x = x;
 }
 
@@ -56,6 +56,6 @@ Fixed Point::gety() const {
 	return (this->y);
 }
 
-void	Point::sety(int const y) {
+void	Point::sety(Fixed const y) {
 	this->y = y;
 }

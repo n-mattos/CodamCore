@@ -6,7 +6,7 @@
 /*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 11:33:02 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/08 12:30:48 by nmattos       ########   odam.nl         */
+/*   Updated: 2025/05/18 13:29:55 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ class Point
 		~Point();
 
 		Fixed	getx() const;
-		void	setx(int const x);
+		void	setx(Fixed const x);
 		Fixed	gety() const;
-		void	sety(int const y);
+		void	sety(Fixed const y);
 };
 
 bool	bsp(Point const a, Point const b, Point const c, Point const point);
