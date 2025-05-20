@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ClapTrap.cpp                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/18 13:38:36 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/18 14:01:40 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/18 13:38:36 by nmattos           #+#    #+#             */
+/*   Updated: 2025/05/20 09:43:52 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,29 @@ void	ClapTrap::attack(const std::string& target) {
 	<< std::endl;
 }
 void	ClapTrap::takeDamage(unsigned int amount) {
+	this->hp -= amount;
+	if (this->hp < 0)
+		this->hp = 0;
 	std::cout
 		<< "ClapTrap "
 		<< this->name
 		<< " lost "
 		<< amount
-		<< " health!"
+		<< " health! | HP: "
+		<< this->hp
 	<< std::endl;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
+	this->ep -= amount;
+	if (this->ep < 0)
+		this->ep = 0;
 	std::cout
 		<< "ClapTrap "
 		<< this->name
-		<< " repaired itself for "
+		<< " used 1 EP to repair itself for "
 		<< amount
-		<< " health!"
+		<< " health! | EP: "
+		<< this->ep
 	<< std::endl;
 }
