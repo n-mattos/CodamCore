@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 11:24:01 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:28:59 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ FragTrap::FragTrap() {
 	std::cout << "<FragTrap> Default Constructor called" << std::endl;
 	this->name = "Grunt";
 	this->hp = 100;
-	this->ep = 50;
-	this->at = 20;
+	this->ep = 100;
+	this->at = 30;
 }
 
 FragTrap::FragTrap(std::string name) {
 	std::cout << "<FragTrap> Parameterized Constructor called" << std::endl;
 	this->name = name;
 	this->hp = 100;
-	this->ep = 50;
-	this->at = 20;
+	this->ep = 100;
+	this->at = 30;
 }
 
 FragTrap::~FragTrap() {
