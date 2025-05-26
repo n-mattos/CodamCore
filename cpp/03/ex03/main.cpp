@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:18:56 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 14:35:17 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:42:42 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(void) {
 	dan.attack("denise");
 	dan.takeDamage(14);
 	dan.beRepaired(9);
+	dan.whoAmI();
 
 	std::cout << std::endl << "Deconstructors:" << std::endl;
 	return (0);

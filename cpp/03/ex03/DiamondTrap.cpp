@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:34:25 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 14:34:11 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:44:05 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,15 @@ void	DiamondTrap::beRepaired(unsigned int amount) {
 		<< amount
 		<< " health! | EP: "
 		<< this->ep
+	<< std::endl;
+}
+
+void 	DiamondTrap::whoAmI(void) {
+	std::cout
+		<< "My DiamondTrap name is: "
+		<< this->name
+		<< ", and my ClapTrap name is: "
+		<< ClapTrap::name
+		<< "."
 	<< std::endl;
 }
