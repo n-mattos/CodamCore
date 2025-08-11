@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   HumanA.cpp                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/04/13 16:58:00 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/13 17:21:22 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 16:58:00 by nmattos           #+#    #+#             */
+/*   Updated: 2025/08/11 13:23:31 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ HumanA::~HumanA() {
 
 HumanA::HumanA(std::string name, Weapon &weapon) {
 	this->name = name;
+	this->weapon = &weapon;
+}
+
+std::string	HumanA::getName(void) const {
+	return (this->name);
+}
+
+std::string	HumanA::getWeapon(void) const {
+	return (this->weapon->getType());
+}
+
+void HumanA::setWeapon(Weapon &weapon) {
 	this->weapon = &weapon;
 }
 

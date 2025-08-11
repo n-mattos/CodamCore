@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   HumanB.hpp                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/04/13 17:01:36 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/04/13 17:22:12 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 17:01:36 by nmattos           #+#    #+#             */
+/*   Updated: 2025/08/11 13:21:21 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class HumanB
 		~HumanB();
 
 		// Functions
-		std::string	getName(void)	const		{return (this->name);}
-		std::string	getWeapon(void) const		{return (this->weapon->getType());}
-		void		setWeapon(Weapon &weapon)	{this->weapon = &weapon;}
+		std::string	getName(void)	const;
+		std::string	getWeapon(void) const;
+		void		setWeapon(Weapon &weapon);
 		void		attack(void);
 };

@@ -6,11 +6,17 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:22:10 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/16 14:26:20 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:26:28 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
+
+Harl::Harl() {
+}
+
+Harl::~Harl() {
+}
 
 void	Harl::debug(void) {
 	std::cout << DEBUG << std::endl;

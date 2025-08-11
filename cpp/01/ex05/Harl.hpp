@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:22:11 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/16 14:10:06 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:25:53 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ class Harl
 		void	warning(void);
 		void	error(void);
 	public:
-		Harl() {};
-		~Harl() {};
+		Harl();
+		~Harl();
 
 		void	complain(std::string level);
 };
