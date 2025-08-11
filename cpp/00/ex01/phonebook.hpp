@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:36:58 by nmattos           #+#    #+#             */
-/*   Updated: 2025/04/28 14:41:47 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:00:43 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,9 @@ class Phonebook
 	public:
 		Phonebook() : index(0) {}
 
-		Contact getContact(int index) {
-			return (contacts[index]);
-		}
-
-		void addContact(Contact contact) {
-			contacts[index] = contact;
-            index = (index + 1) % 8;
-		}
-
-		void viewAllContacts() {
-			std::cout << "---------------------------------------------\n";
-            for (int i = 0; i < 8; i++) {
-                contacts[(i) % 8].viewContact(i + 1);
-            }
-			std::cout << "---------------------------------------------\n";
-        }
+		Contact getContact(int index);
+		void addContact(Contact contact);
+		void viewAllContacts();
 };
 
 void		search(Phonebook book);
