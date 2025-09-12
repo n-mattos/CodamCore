@@ -6,11 +6,12 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:30:53 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/08/11 13:26:44 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:33:46 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
 
 class Harl
 {
@@ -23,7 +24,7 @@ class Harl
 		Harl();
 		~Harl();
 
-		void	complain(std::string level);
+		void	complain(int filter, std::string level);
 };
 
 #define DEBUG "I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!"

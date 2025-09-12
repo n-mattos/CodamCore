@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:31:02 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/08/11 13:26:53 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:45:42 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,28 @@ static void	print_usage(std::string level) {
 			  << "Use; DEBUG, INFO, WARNING, ERROR."<< std::endl;
 }
 
-void	Harl::complain(std::string level) {
-	std::string levels[] =
-		{"DEBUG", "INFO", "WARNING", "ERROR"};
-	void (Harl::*functions[])(void) =
-		{&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+void	Harl::complain(int filter, std::string level) {
+	std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	int i = 0;
 	while (i < 4 && levels[i] != level)
 		i++;
-	if (i < 4)
-		(this->*functions[i])();
-	else
-		print_usage(level);
+	if (i >= 0 && filter <= i)
+	{
+        switch (i) {
+            case 0:
+                if (filter <= 0) this->debug();
+                break;
+            case 1:
+                if (filter <= 1) this->info();
+                break;
+            case 2:
+                if (filter <= 2) this->warning();
+                break;
+            case 3:
+                if (filter <= 3) this->error();
+                break;
+        }
+    } else if (i == -1)
+        print_usage(level);
 }

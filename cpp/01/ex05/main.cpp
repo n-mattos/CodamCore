@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:22:08 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/16 14:15:23 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:10:16 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int	main(void)
 	karen.complain("ERROR");
 	std::cout << std::endl;
 	karen.complain("NONEXISTENT");
+	return (0);
 }
