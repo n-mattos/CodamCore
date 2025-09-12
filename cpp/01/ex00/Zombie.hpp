@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 09:33:29 by nmattos           #+#    #+#             */
-/*   Updated: 2025/08/11 13:13:36 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:11:19 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ class Zombie
 		Zombie(std::string name);
 
 		// Deconstructor
-		~Zombie(void);
+		~Zombie();
 
 		// Functions
-		void	announce(void);
+		void	announce() const;
 };
 
 Zombie	*newZombie(std::string name);

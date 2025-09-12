@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:38:51 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/04/14 11:19:49 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:16:16 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static std::string	replace_string(std::string line,
 {
 	size_t	pos = 0;
 
+	if (s1.empty())
+		return (line);
 	while ((pos = line.find(s1, pos)) != std::string::npos) {
         line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
         pos += s2.length();
@@ -48,9 +50,8 @@ int	sed(int argc, char *argv[]) {
 
 	// READ OLD, REPLACE, WRITE NEW
 	std::string line;
-	while (std::getline(file, line)) {
-		new_file << replace_string(line, argv[TO_REPLACE], argv[REPLACEMENT]) << std::endl;
-	}
+	while (std::getline(file, line))
+		new_file << replace_string(line, argv[TO_REPLACE], argv[REPLACEMENT]) << "\n";
 
 	// CLOSE FILES
 	file.close();

@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:31:02 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/12 12:45:42 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:23:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	print_usage(std::string level) {
 void	Harl::complain(int filter, std::string level) {
 	std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	int i = 0;
-	while (i < 4 && levels[i] != level)
-		i++;
-	if (i >= 0 && filter <= i)
+	int msg = 0;
+	while (msg < 4 && levels[msg] != level)
+		msg++;
+	if (msg >= 0 && filter <= msg)
 	{
-        switch (i) {
+        switch (msg) {
             case 0:
                 if (filter <= 0) this->debug();
                 break;
@@ -60,7 +60,8 @@ void	Harl::complain(int filter, std::string level) {
             case 3:
                 if (filter <= 3) this->error();
                 break;
+			default:
+				print_usage(level);
         }
-    } else if (i == -1)
-        print_usage(level);
+	}
 }
