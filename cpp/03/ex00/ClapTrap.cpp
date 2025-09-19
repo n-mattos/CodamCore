@@ -6,20 +6,18 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 13:38:36 by nmattos           #+#    #+#             */
-/*   Updated: 2025/05/20 09:43:52 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 10:30:05 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() {
+ClapTrap::ClapTrap() : _name("Grunt") {
 	std::cout << "Default Constructor called" << std::endl;
-	this->name = "Grunt";
 }
 
-ClapTrap::ClapTrap(std::string name) {
+ClapTrap::ClapTrap(std::string name) : _name(name) {
 	std::cout << "Parameterized Constructor called" << std::endl;
-	this->name = name;
 }
 
 ClapTrap::~ClapTrap() {
@@ -27,40 +25,64 @@ ClapTrap::~ClapTrap() {
 }
 
 void	ClapTrap::attack(const std::string& target) {
+	if (_ep <= 0) {
+		std::cout
+			<< "ClapTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_ep -= 1;
 	std::cout
 		<< "ClapTrap "
-		<< this->name
+		<< _name
 		<< " attacks "
 		<< target
 		<< ", causing "
-		<< this->at
+		<< _at
 		<< " points of damage!"
 	<< std::endl;
 }
+
 void	ClapTrap::takeDamage(unsigned int amount) {
-	this->hp -= amount;
-	if (this->hp < 0)
-		this->hp = 0;
+	_hp -= amount;
+	if (_hp < 0) {
+		amount += _hp;
+		_hp = 0;
+	}
+
 	std::cout
 		<< "ClapTrap "
-		<< this->name
+		<< _name
 		<< " lost "
 		<< amount
 		<< " health! | HP: "
-		<< this->hp
+		<< _hp
 	<< std::endl;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
-	this->ep -= amount;
-	if (this->ep < 0)
-		this->ep = 0;
+	if (_ep <= 0) {
+		std::cout
+			<< "ClapTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_hp += amount;	// no mention of max hp in subject, so let it go over 10
+	_ep -= 1;
 	std::cout
 		<< "ClapTrap "
-		<< this->name
+		<< _name
 		<< " used 1 EP to repair itself for "
 		<< amount
-		<< " health! | EP: "
-		<< this->ep
+		<< " health! | HP: "
+		<< _hp
+		<< " | EP: "
+		<< _ep
 	<< std::endl;
 }

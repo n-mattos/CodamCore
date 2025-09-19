@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 13:34:20 by nmattos           #+#    #+#             */
-/*   Updated: 2025/05/26 11:05:43 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 10:33:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 class ClapTrap
 {
 	public:
-		std::string	name;
-		int			hp = 10;
-		int			ep = 10;
-		int			at = 0;
+		std::string	_name;
+		int			_hp = 10;
+		int			_ep = 10;
+		int			_at = 0;
 
 		ClapTrap();
 		ClapTrap(std::string name);

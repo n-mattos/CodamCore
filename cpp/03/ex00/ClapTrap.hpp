@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ClapTrap.hpp                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/18 13:34:20 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/18 13:51:45 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/18 13:34:20 by nmattos           #+#    #+#             */
+/*   Updated: 2025/09/19 10:16:52 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 class ClapTrap
 {
 	private:
-		std::string	name;
-		int			hp = 10;
-		int			ep = 10;
-		int			at = 0;
+		std::string	_name;
+		int			_hp = 10;
+		int			_ep = 10;
+		int			_at = 0;
 	public:
 		ClapTrap();
 		ClapTrap(std::string name);

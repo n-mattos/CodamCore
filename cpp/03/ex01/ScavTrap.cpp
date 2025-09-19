@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:11:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 11:09:40 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 10:45:49 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 ScavTrap::ScavTrap() {
 	std::cout << "<ScavTrap> Default Constructor called" << std::endl;
-	this->name = "Grunt";
-	this->hp = 100;
-	this->ep = 50;
-	this->at = 20;
+	_name = "Grunt";
+	_hp = 100;
+	_ep = 50;
+	_at = 20;
 }
 
 ScavTrap::ScavTrap(std::string name) {
 	std::cout << "<ScavTrap> Parameterized Constructor called" << std::endl;
-	this->name = name;
-	this->hp = 100;
-	this->ep = 50;
-	this->at = 20;
+	_name = name;
+	_hp = 100;
+	_ep = 50;
+	_at = 20;
 }
 
 ScavTrap::~ScavTrap() {
@@ -33,48 +33,72 @@ ScavTrap::~ScavTrap() {
 }
 
 void	ScavTrap::attack(const std::string& target) {
+	if (_ep <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_ep -= 1;
 	std::cout
 		<< "ScavTrap "
-		<< this->name
+		<< _name
 		<< " attacks "
 		<< target
 		<< ", causing "
-		<< this->at
+		<< _at
 		<< " points of damage!"
 	<< std::endl;
 }
+
 void	ScavTrap::takeDamage(unsigned int amount) {
-	this->hp -= amount;
-	if (this->hp < 0)
-		this->hp = 0;
+	_hp -= amount;
+	if (_hp < 0) {
+		amount += _hp;
+		_hp = 0;
+	}
+
 	std::cout
 		<< "ScavTrap "
-		<< this->name
+		<< _name
 		<< " lost "
 		<< amount
 		<< " health! | HP: "
-		<< this->hp
+		<< _hp
 	<< std::endl;
 }
 
 void	ScavTrap::beRepaired(unsigned int amount) {
-	this->ep -= 1;
-	if (this->ep < 0)
-		this->ep = 0;
+	if (_ep <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_hp += amount;	// no mention of max hp in subject, so let it go over 10
+	_ep -= 1;
 	std::cout
 		<< "ScavTrap "
-		<< this->name
+		<< _name
 		<< " used 1 EP to repair itself for "
 		<< amount
-		<< " health! | EP: "
-		<< this->ep
+		<< " health! | HP: "
+		<< _hp
+		<< " | EP: "
+		<< _ep
 	<< std::endl;
 }
 
 void ScavTrap::guardGate() {
 	std::cout
 		<< "ScavTrap "
-		<< this->name
+		<< _name
 		<< " is now in Gatekeeper Mode."
 	<< std::endl;
 }
