@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:34 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 14:40:56 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:50:37 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 class FragTrap : virtual public ClapTrap
 {
 	public:
-		std::string	name;
-		int			hp;
-		int			ep;
-		int			at;
-
 		FragTrap();
 		FragTrap(std::string name);
 		~FragTrap();
@@ -30,7 +25,7 @@ class FragTrap : virtual public ClapTrap
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
-		void 	highFivesGuys(void);
+		void 	highFivesGuys();
 };
 
 #endif

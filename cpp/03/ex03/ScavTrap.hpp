@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 11:18:50 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 14:41:00 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/05/20 10:09:27 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/09/19 11:50:42 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 class ScavTrap : virtual public ClapTrap
 {
 	public:
-		std::string	name;
-		int			hp;
-		int			ep;
-		int			at;
-
 		ScavTrap();
 		ScavTrap(std::string name);
 		~ScavTrap();
