@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:34 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 11:23:18 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:49:22 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class FragTrap : public ClapTrap
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
-		void 	highFivesGuys(void);
+		void 	highFivesGuys();
 };
 
 #endif

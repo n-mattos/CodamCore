@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/05/26 11:28:59 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:49:03 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 FragTrap::FragTrap() {
 	std::cout << "<FragTrap> Default Constructor called" << std::endl;
-	this->name = "Grunt";
-	this->hp = 100;
-	this->ep = 100;
-	this->at = 30;
+	_name = "Grunt";
+	_hp = 100;
+	_ep = 100;
+	_at = 30;
 }
 
 FragTrap::FragTrap(std::string name) {
 	std::cout << "<FragTrap> Parameterized Constructor called" << std::endl;
-	this->name = name;
-	this->hp = 100;
-	this->ep = 100;
-	this->at = 30;
+	_name = name;
+	_hp = 100;
+	_ep = 100;
+	_at = 30;
 }
 
 FragTrap::~FragTrap() {
@@ -33,48 +33,72 @@ FragTrap::~FragTrap() {
 }
 
 void	FragTrap::attack(const std::string& target) {
+	if (_ep <= 0) {
+		std::cout
+			<< "FragTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_ep -= 1;
 	std::cout
 		<< "FragTrap "
-		<< this->name
+		<< _name
 		<< " attacks "
 		<< target
 		<< ", causing "
-		<< this->at
+		<< _at
 		<< " points of damage!"
 	<< std::endl;
 }
+
 void	FragTrap::takeDamage(unsigned int amount) {
-	this->hp -= amount;
-	if (this->hp < 0)
-		this->hp = 0;
+	_hp -= amount;
+	if (_hp < 0) {
+		amount += _hp;
+		_hp = 0;
+	}
+
 	std::cout
 		<< "FragTrap "
-		<< this->name
+		<< _name
 		<< " lost "
 		<< amount
 		<< " health! | HP: "
-		<< this->hp
+		<< _hp
 	<< std::endl;
 }
 
 void	FragTrap::beRepaired(unsigned int amount) {
-	this->ep -= 1;
-	if (this->ep < 0)
-		this->ep = 0;
+	if (_ep <= 0) {
+		std::cout
+			<< "FragTrap "
+			<< _name
+			<< " is out of energy!"
+		<< std::endl;
+		return;
+	}
+
+	_hp += amount;	// no mention of max hp in subject, so let it go over 10
+	_ep -= 1;
 	std::cout
 		<< "FragTrap "
-		<< this->name
+		<< _name
 		<< " used 1 EP to repair itself for "
 		<< amount
-		<< " health! | EP: "
-		<< this->ep
+		<< " health! | HP: "
+		<< _hp
+		<< " | EP: "
+		<< _ep
 	<< std::endl;
 }
 
 void FragTrap::highFivesGuys(void) {
 	std::cout
 		<< "FragTrap "
-		<< this->name
+		<< _name
 		<< " is looking to high five."
 	<< std::endl;
 }
