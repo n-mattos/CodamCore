@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   Fixed.cpp                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/04/23 13:54:57 by nmattos-      #+#    #+#                 */
-/*   Updated: 2025/05/05 10:52:40 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 13:54:57 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/09/19 09:13:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 Fixed::Fixed() {
 	std::cout << "Default constructor called" << std::endl;
-	this->value = 0;
+	value = 0;
 }
 
 Fixed::Fixed(const Fixed &other) {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = other;
+	value = other.value;
 }
 
 Fixed::Fixed(const int val) {
 	std::cout << "Int constructor called" << std::endl;
-	this->value = roundf(val * (1 << fractionalbit));
+	value = roundf(val * (1 << fractionalbit));
 }
 
 Fixed::Fixed(const float val) {
 	std::cout << "Float constructor called" << std::endl;
-	this->value = roundf(val * (1 << fractionalbit));
+	value = roundf(val * (1 << fractionalbit));
 }
 
 // Copy assignment operator overload
@@ -37,7 +37,7 @@ Fixed::Fixed(const float val) {
 Fixed &Fixed::operator=(const Fixed &other) {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
-		this->value = other.getRawBits();
+		value = other.value;
 	return (*this);
 }
 
@@ -46,11 +46,11 @@ Fixed::~Fixed() {
 }
 
 int		Fixed::getRawBits(void) const {
-	return (this->value);
+	return (value);
 }
 
 void	Fixed::setRawBits(int const raw) {
-	this->value = raw;
+	value = raw;
 }
 
 // bit shift

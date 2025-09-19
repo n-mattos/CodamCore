@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: nmattos <nmattos@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2025/05/08 11:31:00 by nmattos       #+#    #+#                  #
-#    Updated: 2025/05/08 11:31:16 by nmattos       ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/08 11:31:00 by nmattos           #+#    #+#              #
+#    Updated: 2025/09/19 09:56:32 by nmattos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++11
 NAME = a.out
 SRC = main.cpp \
 	  Fixed.cpp \
-	  Point.cpp
+	  Point.cpp \
+	  bsp.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++
 

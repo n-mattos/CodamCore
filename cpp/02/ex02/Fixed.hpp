@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   Fixed.hpp                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/05 10:59:47 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/05 12:04:30 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/05 10:59:47 by nmattos           #+#    #+#             */
+/*   Updated: 2025/09/12 13:04:39 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ class Fixed
 		Fixed &operator=(const Fixed &other);
 		// Comparison overloads
 		bool operator>(const Fixed &other) const;
-		bool operator<(const Fixed &other) const ;
-		bool operator>=(const Fixed &other) const ;
-		bool operator<=(const Fixed &other) const ;
-		bool operator==(const Fixed &other) const ;
-		bool operator!=(const Fixed &other) const ;
+		bool operator<(const Fixed &other) const;
+		bool operator>=(const Fixed &other) const;
+		bool operator<=(const Fixed &other) const;
+		bool operator==(const Fixed &other) const;
+		bool operator!=(const Fixed &other) const;
 		// Arithmetic overloads
 		Fixed operator+(const Fixed &other) const;
 		Fixed operator-(const Fixed &other) const;

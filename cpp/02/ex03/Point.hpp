@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   Point.hpp                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos <nmattos@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/05/08 11:33:02 by nmattos       #+#    #+#                 */
-/*   Updated: 2025/05/18 13:29:55 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 11:33:02 by nmattos           #+#    #+#             */
+/*   Updated: 2025/09/19 10:04:16 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ class Point
 		~Point();
 
 		Fixed	getx() const;
-		void	setx(Fixed const x);
 		Fixed	gety() const;
-		void	sety(Fixed const y);
+		Fixed	crossproduct(const Point &other) const;
 };
 
 bool	bsp(Point const a, Point const b, Point const c, Point const point);
