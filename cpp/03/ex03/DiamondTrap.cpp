@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:34:25 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:04:28 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:05:16 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,27 @@ DiamondTrap::DiamondTrap(std::string name) {
 	_hp = FragTrap::_hp;
 	_ep = ScavTrap::_ep;
 	_at = FragTrap::_at;
+}
+
+DiamondTrap::DiamondTrap(const DiamondTrap& other) {
+	std::cout << "<DiamondTrap> Copy Constructor called" << std::endl;
+	_name = other._name;
+	ClapTrap::_name = other.ClapTrap::_name;
+	_hp = other._hp;
+	_ep = other._ep;
+	_at = other._at;
+}
+
+DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
+	std::cout << "<DiamondTrap> Copy Assignment Operator called" << std::endl;
+	if (this != &other) {
+		_name = other._name;
+		ClapTrap::_name = other.ClapTrap::_name;
+		_hp = other._hp;
+		_ep = other._ep;
+		_at = other._at;
+	}
+	return *this;
 }
 
 DiamondTrap::~DiamondTrap() {

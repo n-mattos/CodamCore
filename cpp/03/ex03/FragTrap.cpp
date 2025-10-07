@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 11:49:03 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:04:35 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ FragTrap::FragTrap(std::string name) {
 	_hp = 100;
 	_ep = 100;
 	_at = 30;
+}
+
+FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
+	std::cout << "<FragTrap> Copy Constructor called" << std::endl;
+	*this = other;
+}
+
+FragTrap& FragTrap::operator=(const FragTrap& other) {
+	std::cout << "<FragTrap> Copy Assignment Operator called" << std::endl;
+	if (this != &other) {
+		_name = other._name;
+		_hp = other._hp;
+		_ep = other._ep;
+		_at = other._at;
+	}
+	return *this;
 }
 
 FragTrap::~FragTrap() {

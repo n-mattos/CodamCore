@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 13:38:36 by nmattos           #+#    #+#             */
-/*   Updated: 2025/09/19 10:33:20 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:03:00 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ ClapTrap::ClapTrap() : _name("Grunt") {
 
 ClapTrap::ClapTrap(std::string name) : _name(name) {
 	std::cout << "Parameterized Constructor called" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap& other) {
+	std::cout << "Copy Constructor called" << std::endl;
+	*this = other;
+}
+
+ClapTrap &ClapTrap::operator=(const ClapTrap &other) {
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &other) {
+		_name = other._name;
+		_hp = other._hp;
+		_ep = other._ep;
+		_at = other._at;
+	}
+	return (*this);
 }
 
 ClapTrap::~ClapTrap() {

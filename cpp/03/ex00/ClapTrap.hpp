@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 13:34:20 by nmattos           #+#    #+#             */
-/*   Updated: 2025/09/19 10:16:52 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:13:24 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ class ClapTrap
 		int			_hp = 10;
 		int			_ep = 10;
 		int			_at = 0;
+
 	public:
 		ClapTrap();
 		ClapTrap(std::string name);
+		ClapTrap(const ClapTrap& other);
+		ClapTrap& operator=(const ClapTrap& other);
 		~ClapTrap();
 
 		void	attack(const std::string& target);

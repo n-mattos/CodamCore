@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:34 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 11:50:37 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:15:23 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ class FragTrap : virtual public ClapTrap
 	public:
 		FragTrap();
 		FragTrap(std::string name);
-		~FragTrap();
+		FragTrap(const FragTrap& other);
+		FragTrap& operator=(const FragTrap& other);
+		~FragTrap() override;
 
-		void	attack(const std::string& target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
+		void	attack(const std::string& target) override;
+		void	takeDamage(unsigned int amount) override;
+		void	beRepaired(unsigned int amount) override;
 		void 	highFivesGuys();
 };
 
