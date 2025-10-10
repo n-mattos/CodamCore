@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   contacts.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 15:12:33 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/10 10:23:55 by nmattos-         ###   ########.fr       */
+/*   Created: 2025/08/25 11:59:20 by nmattos-          #+#    #+#             */
+/*   Updated: 2025/08/25 12:01:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef H_DOG
-# define H_DOG
+#include <iostream>
 
-#include "Animal.hpp"
-
-class Dog : virtual public Animal
+class Contact
 {
+	private:
+		std::string	firstname;
+		std::string	lastname;
+		std::string	nickname;
+		std::string	phone;
+		std::string	secret;
 	public:
-		Dog();
-		Dog(const Dog& other);
-		Dog& operator=(const Dog& other);
-		~Dog();
+		Contact();
+		Contact(std::string firstname,
+				std::string lastname,
+				std::string nickname,
+				std::string phone,
+				std::string secret);
 
-		void	makeSound() const override;
+		void viewContact(int index);
+		void fullContact();
 };
-
-#endif

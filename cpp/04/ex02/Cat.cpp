@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:11:05 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:53:38 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:29:03 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ Cat::Cat() : Animal("Cat"), _brain(new Brain) {
 	std::cout
 		<< "<Cat> Default Constructor called"
 	<< "\n";
+}
+
+Cat::Cat(const Cat& other) : Animal(other), _brain(new Brain(*(other._brain))) {
+	std::cout
+		<< "<Cat> Copy Constructor called"
+	<< "\n";
+}
+
+Cat&	Cat::operator=(const Cat& other) {
+	std::cout
+		<< "<Cat> Copy Assignment Operator called"
+	<< "\n";
+	if (this != &other) {
+		Animal::operator=(other);
+		delete _brain;
+		_brain = new Brain(*(other._brain));
+	}
+	return *this;
 }
 
 Cat::~Cat() {
@@ -36,6 +54,22 @@ WrongCat::WrongCat() : WrongAnimal("WrongCat") {
 	std::cout
 		<< "<WrongCat> Default Constructor called"
 	<< "\n";
+}
+
+WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other) {
+	std::cout
+		<< "<WrongCat> Copy Constructor called"
+	<< "\n";
+}
+
+WrongCat&	WrongCat::operator=(const WrongCat& other) {
+	std::cout
+		<< "<WrongCat> Copy Assignment Operator called"
+	<< "\n";
+	if (this != &other) {
+		this->_type = other._type;
+	}
+	return *this;
 }
 
 WrongCat::~WrongCat() {

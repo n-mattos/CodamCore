@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:11:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/07 11:03:38 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:54:56 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ void	ScavTrap::attack(const std::string& target) {
 		<< std::endl;
 		return;
 	}
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
 
 	_ep -= 1;
 	std::cout
@@ -96,6 +104,14 @@ void	ScavTrap::beRepaired(unsigned int amount) {
 		<< std::endl;
 		return;
 	}
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
 
 	_hp += amount;	// no mention of max hp in subject, so let it go over 10
 	_ep -= 1;
@@ -112,6 +128,15 @@ void	ScavTrap::beRepaired(unsigned int amount) {
 }
 
 void ScavTrap::guardGate() {
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
+
 	std::cout
 		<< "ScavTrap "
 		<< _name

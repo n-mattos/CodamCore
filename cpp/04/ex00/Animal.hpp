@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:00:03 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:41:46 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:21:26 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ class Animal
 	public:
 		Animal();
 		Animal(std::string type);
+		Animal(const Animal& other);
+		Animal& operator=(const Animal& other);
 		virtual ~Animal();
 
 		virtual void	makeSound() const;
@@ -38,6 +40,8 @@ class WrongAnimal
 	public:
 		WrongAnimal();
 		WrongAnimal(std::string type);
+		WrongAnimal(const WrongAnimal& other);
+		WrongAnimal& operator=(const WrongAnimal& other);
 		virtual ~WrongAnimal();
 
 		virtual void	makeSound() const;

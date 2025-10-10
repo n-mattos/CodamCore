@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:12:33 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:53:19 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:24:22 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ class Dog : virtual public Animal
 
 	public:
 		Dog();
+		Dog(const Dog& other);
+		Dog& operator=(const Dog& other);
 		~Dog();
 
 		void	makeSound() const override;

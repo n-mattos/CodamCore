@@ -6,14 +6,14 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:34:25 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/07 11:05:16 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:57:58 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
 DiamondTrap::DiamondTrap() {
-	std::cout << "<DiamondTrap> Default Constructor called" << std::endl;
+	std::cout << "<DiamondTrap> Default Constructor called" << "\n";
 	_name = "Grunt";
 	_hp = FragTrap::_hp;
 	_ep = ScavTrap::_ep;
@@ -21,7 +21,7 @@ DiamondTrap::DiamondTrap() {
 }
 
 DiamondTrap::DiamondTrap(std::string name) {
-	std::cout << "<DiamondTrap> Parameterized Constructor called" << std::endl;
+	std::cout << "<DiamondTrap> Parameterized Constructor called" << "\n";
 	_name = name;
 	ClapTrap::_name = name + "_clap_name";
 	_hp = FragTrap::_hp;
@@ -30,7 +30,7 @@ DiamondTrap::DiamondTrap(std::string name) {
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other) {
-	std::cout << "<DiamondTrap> Copy Constructor called" << std::endl;
+	std::cout << "<DiamondTrap> Copy Constructor called" << "\n";
 	_name = other._name;
 	ClapTrap::_name = other.ClapTrap::_name;
 	_hp = other._hp;
@@ -39,7 +39,7 @@ DiamondTrap::DiamondTrap(const DiamondTrap& other) {
 }
 
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
-	std::cout << "<DiamondTrap> Copy Assignment Operator called" << std::endl;
+	std::cout << "<DiamondTrap> Copy Assignment Operator called" << "\n";
 	if (this != &other) {
 		_name = other._name;
 		ClapTrap::_name = other.ClapTrap::_name;
@@ -51,7 +51,7 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
 }
 
 DiamondTrap::~DiamondTrap() {
-	std::cout << "<DiamondTrap> Deconstructor called" << std::endl;
+	std::cout << "<DiamondTrap> Deconstructor called" << "\n";
 }
 
 void	DiamondTrap::attack(const std::string& target) {
@@ -72,7 +72,7 @@ void	DiamondTrap::takeDamage(unsigned int amount) {
 		<< amount
 		<< " health! | HP: "
 		<< _hp
-	<< std::endl;
+	<< "\n";
 }
 
 void	DiamondTrap::beRepaired(unsigned int amount) {
@@ -81,7 +81,15 @@ void	DiamondTrap::beRepaired(unsigned int amount) {
 			<< "DiamondTrap "
 			<< _name
 			<< " is out of energy!"
-		<< std::endl;
+		<< "\n";
+		return;
+	}
+	if (_hp <= 0) {
+		std::cout
+			<< "DiamondTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
 		return;
 	}
 
@@ -96,15 +104,24 @@ void	DiamondTrap::beRepaired(unsigned int amount) {
 		<< _hp
 		<< " | EP: "
 		<< _ep
-	<< std::endl;
+	<< "\n";
 }
 
 void 	DiamondTrap::whoAmI(void) {
+	if (_hp <= 0) {
+		std::cout
+			<< "DiamondTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
+
 	std::cout
 		<< "My DiamondTrap name is: "
 		<< _name
 		<< ", and my ClapTrap name is: "
 		<< ClapTrap::_name
 		<< "."
-	<< std::endl;
+	<< "\n";
 }

@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:05:30 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:44:55 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:21:00 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ Animal::Animal(std::string type) : _type(type) {
 	std::cout
 		<< "<Animal> Parameterized Constructor called"
 	<< "\n";
+}
+
+Animal::Animal(const Animal& other) : _type(other._type) {
+	std::cout
+		<< "<Animal> Copy Constructor called"
+	<< "\n";
+}
+
+Animal& Animal::operator=(const Animal& other) {
+	if (this != &other) {
+		_type = other._type;
+	}
+	std::cout
+		<< "<Animal> Copy Assignment Operator called"
+	<< "\n";
+	return (*this);
 }
 
 Animal::~Animal() {
@@ -49,6 +65,21 @@ WrongAnimal::WrongAnimal() : _type("WrongAnimal") {
 WrongAnimal::WrongAnimal(std::string type) : _type(type) {
 	std::cout
 		<< "<WrongAnimal> Parameterized Constructor called"
+	<< "\n";
+}
+
+WrongAnimal::WrongAnimal(const WrongAnimal& other) : _type(other._type) {
+	std::cout
+		<< "<WrongAnimal> Copy Constructor called"
+	<< "\n";
+}
+
+WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other) {
+	if (this != &other) {
+		_type = other._type;
+	}
+	std::cout
+		<< "<WrongAnimal> Copy Assignment Operator called"
 	<< "\n";
 }
 

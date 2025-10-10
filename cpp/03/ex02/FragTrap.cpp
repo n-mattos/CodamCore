@@ -6,14 +6,14 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:19:29 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/07 11:04:41 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:58:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
 FragTrap::FragTrap() {
-	std::cout << "<FragTrap> Default Constructor called" << std::endl;
+	std::cout << "<FragTrap> Default Constructor called" << "\n";
 	_name = "Grunt";
 	_hp = 100;
 	_ep = 100;
@@ -21,7 +21,7 @@ FragTrap::FragTrap() {
 }
 
 FragTrap::FragTrap(std::string name) {
-	std::cout << "<FragTrap> Parameterized Constructor called" << std::endl;
+	std::cout << "<FragTrap> Parameterized Constructor called" << "\n";
 	_name = name;
 	_hp = 100;
 	_ep = 100;
@@ -29,12 +29,12 @@ FragTrap::FragTrap(std::string name) {
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
-	std::cout << "<FragTrap> Copy Constructor called" << std::endl;
+	std::cout << "<FragTrap> Copy Constructor called" << "\n";
 	*this = other;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& other) {
-	std::cout << "<FragTrap> Copy Assignment Operator called" << std::endl;
+	std::cout << "<FragTrap> Copy Assignment Operator called" << "\n";
 	if (this != &other) {
 		_name = other._name;
 		_hp = other._hp;
@@ -45,7 +45,7 @@ FragTrap& FragTrap::operator=(const FragTrap& other) {
 }
 
 FragTrap::~FragTrap() {
-	std::cout << "<FragTrap> Deconstructor called" << std::endl;
+	std::cout << "<FragTrap> Deconstructor called" << "\n";
 }
 
 void	FragTrap::attack(const std::string& target) {
@@ -54,7 +54,15 @@ void	FragTrap::attack(const std::string& target) {
 			<< "FragTrap "
 			<< _name
 			<< " is out of energy!"
-		<< std::endl;
+		<< "\n";
+		return;
+	}
+	if (_hp <= 0) {
+		std::cout
+			<< "FragTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
 		return;
 	}
 
@@ -67,7 +75,7 @@ void	FragTrap::attack(const std::string& target) {
 		<< ", causing "
 		<< _at
 		<< " points of damage!"
-	<< std::endl;
+	<< "\n";
 }
 
 void	FragTrap::takeDamage(unsigned int amount) {
@@ -84,7 +92,7 @@ void	FragTrap::takeDamage(unsigned int amount) {
 		<< amount
 		<< " health! | HP: "
 		<< _hp
-	<< std::endl;
+	<< "\n";
 }
 
 void	FragTrap::beRepaired(unsigned int amount) {
@@ -93,7 +101,15 @@ void	FragTrap::beRepaired(unsigned int amount) {
 			<< "FragTrap "
 			<< _name
 			<< " is out of energy!"
-		<< std::endl;
+		<< "\n";
+		return;
+	}
+	if (_hp <= 0) {
+		std::cout
+			<< "FragTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
 		return;
 	}
 
@@ -108,13 +124,22 @@ void	FragTrap::beRepaired(unsigned int amount) {
 		<< _hp
 		<< " | EP: "
 		<< _ep
-	<< std::endl;
+	<< "\n";
 }
 
 void FragTrap::highFivesGuys(void) {
+	if (_hp <= 0) {
+		std::cout
+			<< "FragTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
+
 	std::cout
 		<< "FragTrap "
 		<< _name
 		<< " is looking to high five."
-	<< std::endl;
+	<< "\n";
 }

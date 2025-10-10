@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 12:48:40 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/09/19 12:54:33 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:25:21 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ class Brain
 
 	public:
 		Brain();
+		Brain(const Brain &src);
+		Brain &operator=(const Brain &src);
 		~Brain();
 };
 

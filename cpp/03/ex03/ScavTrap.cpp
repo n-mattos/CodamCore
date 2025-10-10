@@ -6,14 +6,14 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:11:36 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/07 11:03:35 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:58:11 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
 ScavTrap::ScavTrap() {
-	std::cout << "<ScavTrap> Default Constructor called" << std::endl;
+	std::cout << "<ScavTrap> Default Constructor called" << "\n";
 	_name = "Grunt";
 	_hp = 100;
 	_ep = 50;
@@ -21,7 +21,7 @@ ScavTrap::ScavTrap() {
 }
 
 ScavTrap::ScavTrap(std::string name) {
-	std::cout << "<ScavTrap> Parameterized Constructor called" << std::endl;
+	std::cout << "<ScavTrap> Parameterized Constructor called" << "\n";
 	_name = name;
 	_hp = 100;
 	_ep = 50;
@@ -29,12 +29,12 @@ ScavTrap::ScavTrap(std::string name) {
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
-	std::cout << "<ScavTrap> Copy Constructor called" << std::endl;
+	std::cout << "<ScavTrap> Copy Constructor called" << "\n";
 	*this = other;
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
-	std::cout << "<ScavTrap> Copy Assignment Operator called" << std::endl;
+	std::cout << "<ScavTrap> Copy Assignment Operator called" << "\n";
 	if (this != &other) {
 		_name = other._name;
 		_hp = other._hp;
@@ -45,7 +45,7 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
 }
 
 ScavTrap::~ScavTrap() {
-	std::cout << "<ScavTrap> Deconstructor called" << std::endl;
+	std::cout << "<ScavTrap> Deconstructor called" << "\n";
 }
 
 void	ScavTrap::attack(const std::string& target) {
@@ -54,7 +54,15 @@ void	ScavTrap::attack(const std::string& target) {
 			<< "ScavTrap "
 			<< _name
 			<< " is out of energy!"
-		<< std::endl;
+		<< "\n";
+		return;
+	}
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
 		return;
 	}
 
@@ -67,7 +75,7 @@ void	ScavTrap::attack(const std::string& target) {
 		<< ", causing "
 		<< _at
 		<< " points of damage!"
-	<< std::endl;
+	<< "\n";
 }
 
 void	ScavTrap::takeDamage(unsigned int amount) {
@@ -84,7 +92,7 @@ void	ScavTrap::takeDamage(unsigned int amount) {
 		<< amount
 		<< " health! | HP: "
 		<< _hp
-	<< std::endl;
+	<< "\n";
 }
 
 void	ScavTrap::beRepaired(unsigned int amount) {
@@ -93,7 +101,15 @@ void	ScavTrap::beRepaired(unsigned int amount) {
 			<< "ScavTrap "
 			<< _name
 			<< " is out of energy!"
-		<< std::endl;
+		<< "\n";
+		return;
+	}
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
 		return;
 	}
 
@@ -108,13 +124,22 @@ void	ScavTrap::beRepaired(unsigned int amount) {
 		<< _hp
 		<< " | EP: "
 		<< _ep
-	<< std::endl;
+	<< "\n";
 }
 
 void ScavTrap::guardGate() {
+	if (_hp <= 0) {
+		std::cout
+			<< "ScavTrap "
+			<< _name
+			<< " is dead!"
+		<< "\n";
+		return;
+	}
+
 	std::cout
 		<< "ScavTrap "
 		<< _name
 		<< " is now in Gatekeeper Mode."
-	<< std::endl;
+	<< "\n";
 }
