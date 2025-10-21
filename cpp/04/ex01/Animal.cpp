@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:05:30 by nmattos-          #+#    #+#             */
-/*   Updated: 2025/10/10 10:21:00 by nmattos-         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:47:59 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other) {
 	std::cout
 		<< "<WrongAnimal> Copy Assignment Operator called"
 	<< "\n";
+	return (*this);
 }
 
 WrongAnimal::~WrongAnimal() {
