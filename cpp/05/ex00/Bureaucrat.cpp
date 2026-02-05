@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:48:20 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/02/05 12:10:42 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:14:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void Bureaucrat::incrementGrade() {
 	// Lower grade == higher rank
 	_grade--;
 	if (_grade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 }
 
@@ -85,7 +85,7 @@ void Bureaucrat::decrementGrade() {
 	// Higher grade == lower rank
 	_grade++;
 	if (_grade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 }
 

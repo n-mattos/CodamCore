@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 12:28:28 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/02/05 14:52:45 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:15:17 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ Form::Form(const Form& other) :
 	std::cout
 		<< "<Form> Copy Constructor called"
 	<< "\n";
+	if (_minGradeToSign < 1) {
+		throw Form::GradeTooHighException();
+	}
+	if (_minGradeToSign > 150) {
+		throw Form::GradeTooLowException();
+	}
+	if (_minGradeToExecute < 1) {
+		throw Form::GradeTooHighException();
+	}
+	if (_minGradeToExecute > 150) {
+		throw Form::GradeTooLowException();
+	}
 }
 
 Form::~Form() {
@@ -73,6 +85,13 @@ int	Form::getMinSignGrade() const {
 
 int	Form::getMinExecuteGrade() const {
 	return (_minGradeToExecute);
+}
+
+void	Form::beSigned(const Bureaucrat& Bureaucrat) {
+	if (Bureaucrat.getGrade() > this->_minGradeToSign) {
+		throw Form::GradeTooLowException();
+	}
+	this->_isSigned = true;
 }
 
 std::ostream& operator<<(std::ostream &out, const Form& form) {

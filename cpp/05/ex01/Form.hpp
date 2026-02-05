@@ -6,13 +6,14 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 12:22:40 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/02/05 12:59:34 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:17:12 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef H_BUREAUCRAT
-# define H_BUREAUCRAT
+#ifndef H_FORM
+# define H_FORM
 
+#include "Bureaucrat.hpp"
 #include <string>
 
 class Form
@@ -33,6 +34,7 @@ class Form
 		int					getSigned() const;
 		int					getMinSignGrade() const;
 		int					getMinExecuteGrade() const;
+		void				beSigned(const Bureaucrat& Bureaucrat);
 
 	class GradeTooHighException : public std::exception {
     public:
