@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:40:27 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/01/20 13:51:38 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/02/05 11:59:30 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ class Bureaucrat
 		int					getGrade() const;
 		void				incrementGrade();
 		void				decrementGrade();
+
+	class GradeTooHighException : public std::exception {
+    public:
+        const char* what() const throw() {
+            return ("Grade is too high!");
+        }
+    };
+
+    class GradeTooLowException : public std::exception {
+    public:
+        const char* what() const throw() {
+            return ("Grade is too low!");
+        }
+    };
 };
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& bureaucrat);
