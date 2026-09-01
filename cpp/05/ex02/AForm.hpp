@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 12:22:40 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/01 12:00:51 by nmattos-         ###   ########.fr       */
+/*   Created: 2026/09/01 11:35:13 by nmattos-          #+#    #+#             */
+/*   Updated: 2026/09/01 15:46:53 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef H_FORM
-# define H_FORM
+#ifndef H_AFORM
+# define H_AFORM
 
 #include <string>
 
 class Bureaucrat;
 
-class Form {
+// Abstract due to pure virtual function 'execute'
+class AForm {
 	private:
 		const std::string	_name;
 		bool				_isSigned;
@@ -25,16 +26,19 @@ class Form {
 		const int			_minGradeToExecute;
 
 	public:
-		Form();
-		Form(std::string name, bool isSigned, int minGradeToSign, int minGradetoExecute);
-		Form(const Form& other);
-		~Form();
+		AForm();
+		AForm(std::string name, bool isSigned, int minGradeToSign, int minGradetoExecute);
+		AForm(const AForm& other);
+		~AForm();
 
 		const std::string	getName() const;
 		int					getSigned() const;
 		int					getMinSignGrade() const;
 		int					getMinExecuteGrade() const;
-		void				beSigned(const Bureaucrat& Bureaucrat);
+		// 'Regular' virtual to allow overrides whilst having a default
+		virtual void		beSigned(const Bureaucrat& Bureaucrat);
+		// Pure virtual to force an implementation by derived classes
+		virtual void		execute(const Bureaucrat& executor) const = 0;
 
 	class GradeTooHighException : public std::exception {
 		public:
@@ -45,8 +49,13 @@ class Form {
 		public:
 			const char* what() const throw();
     };
+
+	class NotSignedException : public std::exception {
+		public:
+			const char* what() const throw();
+	};
 };
 
-std::ostream& operator<<(std::ostream &out, const Form& form);
+std::ostream& operator<<(std::ostream &out, const AForm& form);
 
 #endif

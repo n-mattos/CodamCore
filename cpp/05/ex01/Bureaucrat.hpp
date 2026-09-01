@@ -6,18 +6,18 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:40:27 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/02/05 15:17:01 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/09/01 10:45:59 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef H_BUREAUCRAT
 # define H_BUREAUCRAT
 
-#include "Form.hpp"
 #include <string>
 
-class Bureaucrat
-{
+class Form;
+
+class Bureaucrat {
 	private:
 		const std::string	_name;
 		int					_grade;
@@ -36,17 +36,13 @@ class Bureaucrat
 		void				signForm(Form& form);
 
 	class GradeTooHighException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return ("Grade is too high.");
-        }
+		public:
+			const char* what() const throw();
     };
 
     class GradeTooLowException : public std::exception {
-    public:
-        const char* what() const throw() {
-            return ("Grade is too low.");
-        }
+		public:
+			const char* what() const throw();
     };
 };
 

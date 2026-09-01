@@ -6,11 +6,12 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 12:28:28 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/02/05 15:15:17 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/09/01 11:26:35 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 #include <iostream>
 
 Form::Form() : _name("Default"), _isSigned(false), _minGradeToSign(150), _minGradeToExecute(150) {
@@ -92,6 +93,14 @@ void	Form::beSigned(const Bureaucrat& Bureaucrat) {
 		throw Form::GradeTooLowException();
 	}
 	this->_isSigned = true;
+}
+
+const char* Form::GradeTooHighException::what() const throw() {
+	return ("Required grade is too high.");
+}
+
+const char* Form::GradeTooLowException::what() const throw() {
+	return ("Required grade is too low.");
 }
 
 std::ostream& operator<<(std::ostream &out, const Form& form) {
