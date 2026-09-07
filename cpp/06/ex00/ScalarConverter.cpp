@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:24:12 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/03 13:49:38 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/09/07 11:13:37 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ ScalarConverter::~ScalarConverter() {
 
 void ScalarConverter::convert(std::string input) {
 	std::cout
-		<< "\nConverting <" << input << ">"
+		<< "Converting <" << input << ">"
 	<< "\n";
 
 	// Check for pseudo-literals
