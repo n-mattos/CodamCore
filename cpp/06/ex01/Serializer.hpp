@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/07 11:21:54 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 11:31:42 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   Serializer.hpp                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/09/07 11:21:54 by nmattos-      #+#    #+#                 */
+/*   Updated: 2026/09/28 11:44:33 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ struct Data {
 
 class Serializer {
 	private:
-		Serializer();
-		~Serializer();
+		Serializer() = delete;
+		Serializer(const Serializer& other) = delete;
+		Serializer& operator=(const Serializer& other) = delete;
+		~Serializer() = delete;
 
 	public:
 		static uintptr_t	serialize(Data* ptr);
