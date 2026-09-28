@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/02 12:24:12 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 11:13:37 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ScalarConverter.cpp                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/09/02 12:24:12 by nmattos-      #+#    #+#                 */
+/*   Updated: 2026/09/28 11:40:24 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,6 @@
 #include <iomanip>
 #include <functional>
 #include <limits>
-
-ScalarConverter::ScalarConverter() {
-	std::cout
-		<< "<ScalarConverter> Default Constructor called"
-	<< "\n";
-}
-
-ScalarConverter::~ScalarConverter() {
-	std::cout
-		<< "<ScalarConverter> Destructor called"
-	<< "\n";
-}
 
 void ScalarConverter::convert(std::string input) {
 	std::cout

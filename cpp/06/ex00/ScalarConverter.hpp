@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/02 12:19:17 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 11:44:04 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ScalarConverter.hpp                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/09/02 12:19:17 by nmattos-      #+#    #+#                 */
+/*   Updated: 2026/09/28 11:38:01 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 
 class ScalarConverter {
 	private:
-		ScalarConverter();
-		~ScalarConverter();
+		// Utility Class, no instances allowed
+		ScalarConverter() = delete;
+        ScalarConverter(const ScalarConverter& other) = delete;
+        ScalarConverter& operator=(const ScalarConverter& other) = delete;
+        ~ScalarConverter() = delete;
 
 		static void		printPseudo(std::string input);
 		static void		printChar(std::string input);
