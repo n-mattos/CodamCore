@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:30:34 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 11:14:13 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 14:50:08 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int main(int argc, char* argv[]) {
 		ScalarConverter::convert("Random String");
 		std::cout << "\n";
 		ScalarConverter::convert("-100000000000000.0f");
+		std::cout << "\n";
+		ScalarConverter::convert("-4");
 	} else if (argv[1] == std::string("run") && argc == 3) {
 		ScalarConverter::convert(argv[2]);
 	} else {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ScalarConverter.cpp                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2026/09/02 12:24:12 by nmattos-      #+#    #+#                 */
-/*   Updated: 2026/09/28 11:40:24 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/02 12:24:12 by nmattos-          #+#    #+#             */
+/*   Updated: 2026/10/05 14:50:03 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,8 +275,6 @@ bool ScalarConverter::calcInt(const char *nptr, int &value) {
 		// Overflow/Underflow check
 		if (sum * sign > (std::numeric_limits<int>::max())
 			|| sum * sign < (std::numeric_limits<int>::lowest()))
-			return (false);
-		if (sign == -1 && (std::numeric_limits<int>::max() - (*(nptr) - 48) / 10) < sum)
 			return (false);
 	}
 	while ((*nptr >= '\t' && *nptr <= '\r') || *nptr == ' ')
