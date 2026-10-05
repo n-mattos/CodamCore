@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 12:01:01 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 15:18:49 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 15:04:08 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 #include "ABC.hpp"
 #include <iostream>
 
+// Randomly instantiate A, B, or C.
+// Return as a Base*
 Base* generate(void) {
 	srand(time(0));
 	int randomNumber = rand() % 3;
 
 	switch (randomNumber) {
 		case 0:
+			std::cout << "Created type A" << "\n\n";
 			return (new A());
 		case 1:
+			std::cout << "Created type B" << "\n\n";
 			return (new B());
 		case 2:
+			std::cout << "Created type C" << "\n\n";
 			return (new C());
 		default:
 			break;
@@ -33,6 +38,7 @@ Base* generate(void) {
 	return (NULL);
 }
 
+// Print actual type 'p' points to
 void identify(Base* p) {
 	std::cout << "Identifying by pointer:" << "\n";
 
@@ -46,6 +52,7 @@ void identify(Base* p) {
 		std::cout << "\tCouldn't identify." << "\n";
 }
 
+// Print actual type 'p' references
 void identify(Base& p) {
 	std::cout << "Identifying by reference:" << "\n";
 
