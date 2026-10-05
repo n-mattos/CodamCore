@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:48:20 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/01 10:58:08 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 10:59:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
 		<< "<Bureaucrat> Parameterized Constructor called"
 	<< "\n";
 	if (grade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 	if (grade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 }
 
@@ -37,10 +37,10 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(oth
 		<< "<Bureaucrat> Copy Constructor called"
 	<< "\n";
 	if (other._grade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 	if (other._grade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 }
 
@@ -58,10 +58,10 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
 		_grade = other._grade;
 	}
 	if (_grade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 	if (_grade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 	return (*this);
 }
