@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:38:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/10 14:49:34 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 11:54:58 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SPAN_HPP
 
 #include <vector>
+#include <iostream>
 
 class Span {
 	private:
@@ -24,9 +25,29 @@ class Span {
 		Span(unsigned int N);
 		~Span();
 
+		void			addMultiple(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 		void			addNumber(int value);
 		unsigned int	shortestSpan();
 		unsigned int	longestSpan();
+		unsigned int	getSize();
+		int				getValueAtIndex(unsigned int index);
+
+	class no_span : public std::exception {
+		public:
+			virtual const char* what() const throw() {
+				return ("No span can be found");
+			}
+	};
+
+	class out_of_range : public std::exception {
+		public:
+			virtual const char* what() const throw() {
+				return ("Span is full");
+			}
+	};
+
 };
+
+std::ostream& operator<<(std::ostream& out, const Span& span);
 
 #endif
