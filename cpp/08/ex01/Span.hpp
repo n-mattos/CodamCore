@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:38:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/05 11:54:58 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 13:29:59 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ class Span {
 		std::vector<int>	_vector;
 
 	public:
+		Span();
 		Span(unsigned int N);
+		Span(const Span& other);
+		Span& operator=(const Span& other);
 		~Span();
 
 		void			addMultiple(std::vector<int>::iterator begin, std::vector<int>::iterator end);

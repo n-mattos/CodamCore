@@ -5,40 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/05 13:36:39 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/05 13:36:39 by nmattos-         ###   ########.fr       */
+/*   Created: 2026/10/05 13:36:34 by nmattos-          #+#    #+#             */
+/*   Updated: 2026/10/05 13:36:54 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Span.hpp"
+#include "MutantStack.hpp"
 #include <iostream>
 
 int main() {
-	try {
-		Span sp = Span(15);
+	MutantStack<int> mstack;
 
-		sp.addNumber(6);
-		sp.addNumber(3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
+	mstack.push(5);
+	mstack.push(17);
 
-		std::cout << sp.shortestSpan() << "\n";
-		std::cout << sp.longestSpan() << "\n";
-		std::cout << sp << "\n";
+	std::cout << mstack.top() << std::endl;
 
-		// Own test(s)
-		std::cout << "\nOwn test(s):" << "\n";
-		std::vector<int> numbers = {1, 2, 3, 4, 5};
-		sp.addMultiple(numbers.begin(), numbers.end());
+	mstack.pop();
 
-		std::cout << sp.shortestSpan() << "\n";
-		std::cout << sp.longestSpan() << "\n";
-		std::cout << sp << "\n";
-	} catch (std::exception &e) {
-		std::cerr << e.what() << "\n";
-		return (1);
+	std::cout << mstack.size() << std::endl;
+
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	//[...]
+	mstack.push(0);
+
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+
+	++it;
+	--it;
+	while (it != ite) {
+		std::cout << *it << std::endl;
+		++it;
 	}
-
+	std::stack<int> s(mstack);
 	return (0);
 }

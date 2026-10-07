@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:58:14 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/05 12:00:54 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/05 13:30:49 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 #include <algorithm>
 #include <climits>
 
+Span::Span() : _N(0) {}
+
 Span::Span(unsigned int N): _N(N) {}
+
+Span::Span(const Span& other) : _N(other._N), _vector(other._vector) {}
+
+Span& Span::operator=(const Span& other) {
+	if (this != &other) {
+		_N = other._N;
+		_vector = other._vector;
+	}
+
+	return (*this);
+}
 
 Span::~Span() {}
 
