@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 12:01:01 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/05 15:04:08 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/07 11:52:14 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ Base* generate(void) {
 }
 
 // Print actual type 'p' points to
+// Dynamic cast (on pointers) returns NULL if the cast fails,
+// 	so we can use that to check the type
 void identify(Base* p) {
 	std::cout << "Identifying by pointer:" << "\n";
 
@@ -53,6 +55,8 @@ void identify(Base* p) {
 }
 
 // Print actual type 'p' references
+// Dynamic cast (on references) throws a std::bad_cast exception if the cast fails,
+// 	so we can use that to check the type
 void identify(Base& p) {
 	std::cout << "Identifying by reference:" << "\n";
 
