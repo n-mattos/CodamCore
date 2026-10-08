@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 10:57:22 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/08 12:03:46 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/08 12:13:22 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ template <typename T> class Array {
 
 		// Subscript operator overload
 		T &operator[](unsigned int index) {
-			if (index >= length) {
+			if (index >= length || index < 0) {
 				throw std::out_of_range("Index out of bounds");
 			}
 			return (arr[index]);
