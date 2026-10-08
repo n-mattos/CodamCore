@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 10:57:22 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/10 11:41:08 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/08 12:03:46 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,19 @@ template <typename T> class Array {
 		unsigned int	length;
 		T				*arr;
 
+		// Prevent redundant code in copy constructor and assignment operator overload
+		Array &copy(const Array &other) {
+			length = other.length;
+			arr = new T[length];
+			for (unsigned int i = 0; i < length; i++) {
+				arr[i] = other.arr[i];
+			}
+			return (*this);
+		}
+
 	public:
 		// No param
+		// Creates empty array
 		Array() {
 			length = 0;
 			arr = new T[0];
@@ -35,13 +46,7 @@ template <typename T> class Array {
 
 		// Copy constructor
 		Array(const Array &other) {
-			length = other.length;
-			arr = new T[length];
-
-			// Copy the elements from the other array
-			for (unsigned int i = 0; i < length; i++) {
-				arr[i] = other.arr[i];
-			}
+			*this = copy(other);
 		}
 
 		// Assignment operator overload
@@ -49,12 +54,7 @@ template <typename T> class Array {
 			if (this != &other) {
 				delete[] arr;
 
-				// Copy other array
-				length = other.length;
-				arr = new T[length];
-				for (unsigned int i = 0; i < length; i++) {
-					arr[i] = other.arr[i];
-				}
+				*this = copy(other);
 			}
 			return (*this);
 		}
