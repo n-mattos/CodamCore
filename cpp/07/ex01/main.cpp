@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 15:36:51 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/09/07 15:55:11 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/08 11:53:29 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main() {
 	int arrlength = 5;
 	int *arr = new int[arrlength]{1, 2, 3, 4, 5};
 
+	// Square function
 	std::cout << "Before iter:\t";
 	for (int i = 0; i < arrlength; i++)
 		std::cout << arr[i] << " ";
@@ -45,10 +46,14 @@ int main() {
 		std::cout << arr[i] << " ";
 	std::cout << std::endl;
 
+
+
 	// CONST INT FUNCTION
-	::iter<const int>(arr, 5, constFunction);
+	::iter(arr, 5, constFunction);
 
 	delete[] arr;
+
+
 
 	// CHAR ARRAY
 	void (*func2)(char &) = toUpperCase;
@@ -56,6 +61,7 @@ int main() {
 	int arrlength2 = 5;
 	char *arr2 = new char[arrlength2]{'a', 'b', 'c', 'd', 'e'};
 
+	// ToUpperCase function
 	std::cout << "Before iter:\t";
 	for (int i = 0; i < arrlength2; i++)
 		std::cout << arr2[i] << " ";
