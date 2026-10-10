@@ -1,19 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/09/10 10:54:31 by nmattos-          #+#    #+#              #
-#    Updated: 2026/10/05 13:34:40 by nmattos-         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: nmattos- <nmattos-@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2026/09/10 10:54:31 by nmattos-      #+#    #+#                  #
+#    Updated: 2026/10/10 11:42:11 by nmattos       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++11
 NAME = a.out
-SRC = main.cpp \
-	  MutantStack.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++
 
