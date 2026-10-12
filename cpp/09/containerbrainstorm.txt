@@ -1,0 +1,11 @@
+	ex00:
+Data stored as date, exchange_rate
+(unique) Key + (numerical) Value pair = map
+
+	ex01:
+Data stored as numbers followed by operators
+the operators always apply to the last two numbers = stack
+push on number, pop number on operator
+
+	ex02:
+---
