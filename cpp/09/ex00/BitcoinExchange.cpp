@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 13:34:23 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/12 16:45:11 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/13 10:37:36 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void BitcoinExchange::_processDatabase(const std::string &dbName) {
 	// Read header
 	std::string line;
 	std::getline(dbFile, line);
+	if (line != "date,exchange_rate")
+		throw std::invalid_argument("Invalid header in database file: " + dbName);
 
 	// Read and parse each line of the csv file
 	while (std::getline(dbFile, line)) {
@@ -34,11 +36,6 @@ void BitcoinExchange::_processDatabase(const std::string &dbName) {
 		std::getline(lineStream, exchangeRate, ',');
 		this->_data.insert(std::make_pair(date, std::stof(exchangeRate)));
 	}
-
-	// std::cout << "All entries: " << std::endl;
-	// for (const auto &entry : this->_data) {
-	// 	std::cout << entry.first << " => " << entry.second << std::endl;
-	// }
 
 	dbFile.close();
 }
@@ -111,6 +108,8 @@ void BitcoinExchange::execute(const std::string &input) {
 	// Read header
 	std::string line;
 	std::getline(inputFile, line);
+	if (line != "date | value")
+		throw std::invalid_argument("Invalid header in input file: " + input);
 
 	// Read and parse each line of the csv file
 	while (std::getline(inputFile, line)) {
@@ -121,6 +120,7 @@ void BitcoinExchange::execute(const std::string &input) {
 		std::getline(lineStream, bitcoinAmount, '|');
 
 		// Remove trailing whitespace from date and leading whitespace from bitcoinAmount
+		// (Result of the " | " seperator)
 		date.erase(date.find_last_not_of(" \t") + 1);
 		bitcoinAmount.erase(0, bitcoinAmount.find_first_not_of(" \t"));
 
@@ -129,8 +129,20 @@ void BitcoinExchange::execute(const std::string &input) {
 			_validateInput(date, bitcoinAmount);
 
 			// Process the parsed date and exchange rate
-			float value = std::stof(bitcoinAmount) * this->_data.lower_bound(date)->second;
-			std::cout << date << " => " << value << std::endl;
+			// upper_bound returns the first element that is greater than the given key
+			std::map<std::string, float>::const_iterator rate = this->_data.upper_bound(date);
+			if (rate == this->_data.begin()) {
+				rate = this->_data.begin();
+			} else {
+				--rate;
+			}
+
+			// Print result
+			std::cout
+				<< date
+				<< " => "
+				<< std::stof(bitcoinAmount) * rate->second
+			<< std::endl;
 		} catch (const std::exception &e) {
 			std::cerr << "Error: " << e.what() << std::endl;
 		}
