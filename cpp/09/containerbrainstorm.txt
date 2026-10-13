@@ -8,4 +8,22 @@ the operators always apply to the last two numbers = stack
 push on number, pop number on operator
 
 	ex02:
----
+Requires making pairs of numbers, or pairs of pairs
+The only relevant number is the last number of the pair
+ -> no "physical" pair is needed, as long as recursion level is known.
+
+	r = recursion
+
+	r0 = 1: one number
+	r1 = 2: pair of numbers
+	r2 = 4: pair of pairs
+	r3 = 8: pair of pairs of pairs
+
+	Size of one pair
+		(2^r)
+
+	(max) value of pair n
+		data[n * (2^r) - 1]
+
+	total pairs
+		container.size() / (2^r)
