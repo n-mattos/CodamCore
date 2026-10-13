@@ -6,9 +6,12 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 10:41:47 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/13 11:35:09 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/13 13:07:49 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef H_RPN
+#define H_RPN
 
 #include <string>
 #include <stack>
@@ -25,3 +28,5 @@ class RPN {
 	public:
 		static float calculate(const std::string &input);
 };
+
+#endif
