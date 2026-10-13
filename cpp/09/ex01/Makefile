@@ -6,11 +6,11 @@
 #    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/12 11:19:20 by nmattos-          #+#    #+#              #
-#    Updated: 2026/10/12 11:37:01 by nmattos-         ###   ########.fr        #
+#    Updated: 2026/10/13 11:40:57 by nmattos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++11 -g
 NAME = RPN
 SRC = main.cpp \
 	  RPN.cpp
