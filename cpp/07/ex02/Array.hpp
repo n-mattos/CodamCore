@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 10:57:22 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/08 12:13:22 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/14 14:25:25 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ template <typename T> class Array {
 		// Creates empty array
 		Array() {
 			length = 0;
-			arr = new T[0];
+			arr = new T[length];
 		}
 
 		// unsigned int n as param
@@ -61,9 +61,14 @@ template <typename T> class Array {
 
 		// Subscript operator overload
 		T &operator[](unsigned int index) {
-			if (index >= length || index < 0) {
+			if (index >= length)
 				throw std::out_of_range("Index out of bounds");
-			}
+			return (arr[index]);
+		}
+
+		const T &operator[](unsigned int index) const {
+			if (index >= length)
+				throw std::out_of_range("Index out of bounds");
 			return (arr[index]);
 		}
 
@@ -74,9 +79,8 @@ template <typename T> class Array {
 
 		// Log the array
 		void logArray() {
-			for (unsigned int i = 0; i < length; i++) {
-				std::cout << arr[i] << "\n";
-			}
+			for (unsigned int i = 0; i < length; i++)
+				std::cout << arr[i] << '\n';
 		}
 
 		~Array() {
