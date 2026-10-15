@@ -22,8 +22,36 @@ The only relevant number is the last number of the pair
 	Size of one pair
 		(2^r)
 
-	(max) value of pair n
+	(a) value of pair n
 		data[n * (2^r) - 1]
+
+	(b) value of pair n
+		data[n * (2^r) - 1 - (2^r / 2)]
 
 	total pairs
 		container.size() / (2^r)
+
+	compare two elements:
+		std::max(_aValue(r, n), _bValue(r, n));
+
+
+class variables:
+	Container _c
+		holds input, is edited along the way
+		needs to keep changes between recursions
+
+function variables:
+	recursionDepth
+		holds depth of recursion
+		for potential calculations / knowing when to stop
+
+	pairSize
+		number of elements in one pair
+		to calculate index of a pair's value
+
+	totalPairs
+		number of pairs in input
+
+	pend (temp container)
+		temporary container
+		to hold to be sorted values
