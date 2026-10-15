@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:38:13 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/05 13:29:59 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:36:44 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,13 @@ class Span {
 
 	class no_span : public std::exception {
 		public:
-			virtual const char* what() const throw() {
-				return ("No span can be found");
-			}
-	};
+			virtual const char* what() const throw();
+		};
 
-	class out_of_range : public std::exception {
+		class out_of_range : public std::exception {
 		public:
-			virtual const char* what() const throw() {
-				return ("Span is full");
-			}
-	};
-
+			virtual const char* what() const throw();
+		};
 };
 
 std::ostream& operator<<(std::ostream& out, const Span& span);

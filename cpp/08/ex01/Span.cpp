@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:58:14 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/08 12:35:15 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:42:31 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ unsigned int Span::shortestSpan() {
 	// vector is sorted, so the shortest span is always between adjacent numbers
 	std::vector<int>::iterator it = sorted_vector.begin();
 	unsigned int shortest_span = UINT_MAX;
-	while (it != sorted_vector.end() - 1) {
+	while (it < sorted_vector.end() - 1) {
 		unsigned int span = *(it + 1) - *it;
 		if (span < shortest_span) {
 			shortest_span = span;
@@ -125,5 +125,13 @@ std::ostream& operator<<(std::ostream& out, const Span& span) {
 	}
 
 	out << "]";
-	return out;
+	return (out);
+}
+
+const char* Span::no_span::what() const throw() {
+    return ("No span can be found");
+}
+
+const char* Span::out_of_range::what() const throw() {
+    return ("Span is full");
 }
