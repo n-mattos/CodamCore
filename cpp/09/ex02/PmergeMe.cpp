@@ -1,37 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/13 13:06:58 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/16 11:29:37 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   PmergeMe.cpp                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/10/13 13:06:58 by nmattos-      #+#    #+#                 */
+/*   Updated: 2026/10/18 18:19:30 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-// Use Ford-Johnson's sorting algorithm
-template <typename Container>
-void Ford::sort(Container &c) {
-	(void)c;
+unsigned int Ford::validateAlgorithm(int n) {
+	int sum = 0;
+	for (int k = 1; k <= n; ++k) {
+		double value = (3.0 / 4.0) * k;
+		sum += static_cast<int>(ceil(log2(value)));
+	}
+	return (sum);
 }
 
-// pairSize = size of each pair in current depth
-// n = 'nth' element to access: a1, a2, a..., an
-template <typename Container>
-int	Ford::aValue(Container &c, unsigned int pairSize, unsigned int n) {
-	if (n == 0 || pairSize == 0)
-		throw std::out_of_range("index must be greater than zero");
-	return(c.at(n * (pairSize) - 1));
+unsigned int Ford::Jacobsthal(unsigned int n) {
+	return ((std::pow(2, n + 1) + std::pow(-1, n)) / 3 - 1);
 }
 
-// pairSize = size of each pair in current depth
-// n = 'nth' element to access: b1, b2, b..., bn
-template <typename Container>
-int	Ford::bValue(Container &c, unsigned int pairSize, unsigned int n) {
-	if (n == 0 || pairSize == 0)
-		throw std::out_of_range("index must be greater than zero");
-	return(c.at((n * (pairSize) - 1) - (pairSize / 2)));
+unsigned int Ford::aIndex(unsigned int pairSize, unsigned int n) {
+	return (n * pairSize - 1);
+}
+
+unsigned int Ford::aStartIndex(unsigned int elementSize, unsigned int n) {
+	return ((n * (elementSize * 2) - elementSize));
+}
+
+unsigned int Ford::bIndex(unsigned int pairSize, unsigned int n) {
+	return (n * pairSize - 1 - (pairSize / 2));
+}
+
+unsigned int Ford::bStartIndex(unsigned int elementSize, unsigned int n) {
+	if (n == 1)
+		return (0);
+	return ((n - 1) * (elementSize * 2));
+}
+
+unsigned int Ford::elementIndex(unsigned int elementSize, unsigned int n) {
+	return (n * elementSize - elementSize);
 }

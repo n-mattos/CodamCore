@@ -12,6 +12,28 @@ Requires making pairs of numbers, or pairs of pairs
 The only relevant number is the last number of the pair
  -> no "physical" pair is needed, as long as recursion level is known.
 
+Algorithm:
+	Recursively:
+		1. Make pairs
+		2. Sort pairs by last number
+		3. Repeat until only one pair remains
+
+	Example:
+		1. 1 2 3 4 5 6 7 8
+		2. (1,2) (3,4) (5,6) (7,8)
+		3. (2,4) (6,8)
+		4. (4,8)
+		5. 8
+
+	Exit recursion and:
+		1. Move all b's except b1 into a temporary container
+		2. Main should only hold b1 and all a's
+		3. (Binary) insert from temporary container into main container
+			Insert using Jacobsthal numbers to minimize comparisons
+			Otherwise, insert back to front (bx, b(x-1), ...)
+
+	-----------------------------------------------------------------------
+
 	r = recursion
 
 	r0 = 1: one number

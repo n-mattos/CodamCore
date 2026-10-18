@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/13 13:06:51 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/16 12:02:37 by nmattos-         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.cpp                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/10/13 13:06:51 by nmattos-      #+#    #+#                 */
+/*   Updated: 2026/10/18 19:18:19 by nmattos       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <vector>
 #include <deque>
+#include <iomanip>
 
-#define USAGE "./PmergeMe 3 5 9 7 4\n./PmergeMe `jot -r 3000 1 100000 | tr '\\n' ' '`"
+#define USAGE "./PmergeMe 3 5 9 7 4\n./PmergeMe $(shuf -i 1-100 -n 30 | tr '\\n' ' ')"
 
 // Fill container with a positive integer sequence, built from the input string
 template <typename Container>
@@ -54,15 +55,38 @@ int	main(int argc, char *argv[]) {
 	}
 
 	try {
+		std::cout << std::left << std::setw(10) << "Before: ";
+		for (int i = 1; i < argc; i++)
+			std::cout << argv[i] << ' ';
+		std::cout << '\n';
+
 		std::vector<int> vector;
 		fillContainer(vector, argv);
-		// Ford::sort(vector);
-    	std::cout << vector << '\n';
+
+		auto durationVector = Ford::sort(vector);
 
 		std::deque<int> deque;
 		fillContainer(deque, argv);
-		// Ford::sort(deque);
-    	std::cout << deque << '\n';
+		auto durationDeque = Ford::sort(deque);
+
+		auto vectorTime = std::chrono::duration<double, std::micro>(durationVector).count() / 1000.0;
+		auto dequeTime = std::chrono::duration<double, std::micro>(durationDeque).count() / 1000.0;
+
+    	std::cout << std::left << std::setw(10) << "After: " << deque << '\n';
+		std::cout
+			<< "Time to process a range of "
+			<< vector.size()
+			<< std::setw(27) << " elements with std::vector"
+			<< ": "
+			<< std::fixed << std::setprecision(5) << vectorTime
+		<< " us\n";
+		std::cout
+			<< "Time to process a range of "
+			<< deque.size()
+			<< std::setw(27) << " elements with std::deque"
+			<< ": "
+			<< std::fixed << std::setprecision(5) << dequeTime
+		<< " us\n";
 	} catch (const std::exception &e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 		return (1);
