@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   PmergeMe.hpp                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nmattos- <nmattos-@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2026/10/13 13:06:56 by nmattos-      #+#    #+#                 */
-/*   Updated: 2026/10/18 19:14:35 by nmattos       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/13 13:06:56 by nmattos-          #+#    #+#             */
+/*   Updated: 2026/10/19 12:02:14 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,14 @@ namespace Ford {
 	// n1 = 1, n2 = 1, n3 = 3, n4 = 5, n5 = 11, n6 = 21, ...
 	unsigned int	Jacobsthal(unsigned int n);
 
-	// Get the a index of a pair
-	unsigned int	aIndex(unsigned int pairSize, unsigned int n);
-
-	// Get the index of the first number in element a
-	unsigned int	aStartIndex(unsigned int elementSize, unsigned int n);
-
-	// Get the b index of a pair
-	unsigned int	bIndex(unsigned int pairSize, unsigned int n);
-
-	// Get the index of the first number in element b
-	unsigned int	bStartIndex(unsigned int elementSize, unsigned int n);
-
 	// Get the index of the first number in an element
 	unsigned int	elementIndex(unsigned int elementSize, unsigned int n);
+
+	// Get the element number of the a value in pair n
+	unsigned int	getA(unsigned int n);
+
+	// Get the element number of the b value in pair n
+	unsigned int	getB(unsigned int n);
 
 	// Push an element from src to dst
 	template <typename Container>
@@ -93,96 +87,120 @@ namespace Ford {
 		return (low);
 	}
 
-	// Get the a value of a pair, given the pair size and pair index
+	// Get the a value of a pair
 	template <typename Container>
-	int		aValue(Container &c, unsigned int pairSize, unsigned int n) {
-		return (c.at(aIndex(pairSize, n)));
+	int		aValue(Container &c, unsigned int elementSize, unsigned int n) {
+		return (c.at(elementIndex(elementSize, getA(n)) + elementSize - 1));
 	}
 
-	// Get the b value of a pair, given the pair size and pair index
+	// Get the b value of a pair
 	template <typename Container>
-	int		bValue(Container &c, unsigned int pairSize, unsigned int n) {
-		return (c.at(bIndex(pairSize, n)));
+	int		bValue(Container &c, unsigned int elementSize, unsigned int n) {
+		return (c.at(elementIndex(elementSize, getB(n)) + elementSize - 1));
 	}
 
-	// Swap all elements of a pair, given the pair size and pair index
+	// Swap all elements of a pair
 	template <typename Container>
-	void	swapPair(Container &c, unsigned int pairSize, unsigned int n) {
-		for (unsigned int i = 0; i < pairSize / 2; i++) {
-			std::swap(c[bIndex(pairSize, n) - i], c[aIndex(pairSize, n) - i]);
-		}
+	void	swapPair(Container &c, unsigned int elementSize, unsigned int n) {
+		for (unsigned int i = 0; i < elementSize; i++)
+			std::swap(c[elementIndex(elementSize, getB(n)) + i], c[elementIndex(elementSize, getA(n)) + i]);
 	}
 
-	// Recursively sort the container, given the current depth
+	// Sort all pairs in the container based on the b and a values of each pair
 	template <typename Container>
-	void	recursiveSort(Container &c, unsigned int depth, unsigned int &comparisons) {
-		unsigned int pairSize = std::pow(2, depth);
+	void	sortPairs(Container &c, unsigned int pairSize, unsigned int &comparisons) {
 		unsigned int totalPairs = c.size() / pairSize;
-
-		if (totalPairs == 0) {
-			return;
-		}
+		unsigned int elementSize = pairSize / 2;
 
 		// n = pair index: b1, b2, b3, ..., bn
 		for (unsigned int n = 1; n <= totalPairs; n++) {
-			if (n * pairSize > c.size()) {
-				std::cout << "Pair " << n << " is incomplete, skipping comparison\n";
-				break;
-			}
-			// compare a and b values of each pair and sort them
 			++comparisons;
-			if (Ford::bValue(c, pairSize, n) > Ford::aValue(c, pairSize, n)) {
-				Ford::swapPair(c, pairSize, n);
-			}
+			if (bValue(c, elementSize, n) > aValue(c, elementSize, n))
+				swapPair(c, elementSize, n);
 		}
+	}
 
-		Ford::recursiveSort(c, depth + 1, comparisons);
-
-		Container temp;
-		unsigned int elementSize = pairSize / 2;
+	// Move every element b but b1 into a temporary container
+	template <typename Container>
+	void	movePendingElements(Container &c, Container &temp, unsigned int elementSize) {
 		unsigned int totalElements = c.size() / elementSize;
 		// Move every b but b1 into a temporary container
-		for (unsigned int n = 2; n <= totalElements - totalElements / 2; n++) {
-			Ford::pushElement(c, temp, elementSize, n * Element::B - 1);
-		}
-		// Remove every b but b1 from the original container
-		for (int n = totalElements - totalElements / 2; n >= 2; --n) {
-			Ford::popElement(c, elementSize, n * Element::B - 1);
-		}
+		for (unsigned int n = 2; n <= totalElements - totalElements / 2; n++)
+			pushElement(c, temp, elementSize, getB(n));
 
-		// Insert temporary container into original container
-		// Using Jacobsthal sequence to determine the order of insertion
-		totalElements = temp.size() / elementSize;
+		// Remove every b but b1 from the original container
+		for (int n = totalElements - totalElements / 2; n >= 2; --n)
+			popElement(c, elementSize, getB(n));
+	}
+
+	// Insert temporary container into original container
+	// Using:	-binary search to determine the <location> of insertion
+	// 			-Jacobsthal sequence to determine the <order> of insertion
+	template <typename Container>
+	void	mergeInsert(Container &c, Container &temp, unsigned int elementSize, unsigned int &comparisons) {
+		unsigned int totalElements = temp.size() / elementSize;
 		unsigned int previous = 0;
 		unsigned int ithJacobsthal = 2;
-		unsigned int current = Ford::Jacobsthal(ithJacobsthal);
+		unsigned int current = Jacobsthal(ithJacobsthal);
 		unsigned int insertedNumbers = 0;
 
 		while (previous < totalElements) {
 			unsigned int upper = std::min(current, totalElements);
 			unsigned int searchLimit = upper + insertedNumbers + 1;
 			for (unsigned int n = upper; n > previous; --n) {
-				unsigned int dstN = Ford::binarySearch(c, temp, elementSize, n, searchLimit, comparisons);
-				Ford::insertBefore(temp, c, elementSize, n, dstN);
+				unsigned int dstN = binarySearch(c, temp, elementSize, n, searchLimit, comparisons);
+				insertBefore(temp, c, elementSize, n, dstN);
 				++insertedNumbers;
 			}
 
 			previous = upper;
 			++ithJacobsthal;
-			current = Ford::Jacobsthal(ithJacobsthal);
+			current = Jacobsthal(ithJacobsthal);
 		}
 	}
 
+	// Recursively sort the container, given the current depth
+	/* Following Ford-Johnson's algorithm;
+	 * 1. Compare and sort pairs of elements (a, b) at the current depth
+	 * 2. Recursively repeat step 1 for the next depth, till no more pairs can be formed
+	 * 3. Move every element b but b1 into a temporary container
+	 * 4. Insert temporary container into original container using Jacobsthal sequence to determine the order of insertion
+	 * 5. Repeat step 3-4 till the recursion is complete
+	*/
+	template <typename Container>
+	void	recursiveSort(Container &c, unsigned int depth, unsigned int &comparisons) {
+		unsigned int pairSize = std::pow(2, depth);
+
+		// If no more pairs can be formed, return
+		if (c.size() / pairSize == 0)
+			return;
+
+		// Step 1
+		sortPairs(c, pairSize, comparisons);
+
+		// Step 2
+		recursiveSort(c, depth + 1, comparisons);
+
+		// Step 3
+		Container temp;
+		unsigned int elementSize = pairSize / 2;
+		movePendingElements(c, temp, elementSize);
+
+		// Step 4
+		mergeInsert(c, temp, elementSize, comparisons);
+	}
+
+	// Sort the container using Ford's algorithm and return the time taken to sort in nanoseconds
 	template <typename Container>
 	std::chrono::nanoseconds	sort(Container &c) {
 		unsigned int comparisons = 0;
 
 		auto start = std::chrono::high_resolution_clock::now();
-		Ford::recursiveSort(c, 1, comparisons);
+		recursiveSort(c, 1, comparisons);
 		auto end = std::chrono::high_resolution_clock::now();
 
 		assert(std::is_sorted(c.begin(), c.end()));
-		assert(comparisons <= Ford::validateAlgorithm(c.size()));
+		assert(comparisons <= validateAlgorithm(c.size()));
 
 		return (std::chrono::duration_cast<std::chrono::nanoseconds>(end - start));
 	}
