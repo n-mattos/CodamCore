@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 13:06:56 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/19 12:02:14 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/19 12:39:54 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@
 #include <utility>
 #include <cassert>
 #include <chrono>
-
-enum Element {
-	A = 1,
-	B = 2
-};
 
 namespace Ford {
 	// Validate the algorithm by calculating maximum number of comparisons needed to sort n elements
