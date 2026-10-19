@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 13:06:58 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/19 12:00:13 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/19 14:33:44 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned int Ford::validateAlgorithm(int n) {
 }
 
 unsigned int Ford::Jacobsthal(unsigned int n) {
-	return ((std::pow(2, n + 1) + std::pow(-1, n)) / 3 - 1);
+	return ((std::pow(2, n + 1) + std::pow(-1, n)) / 3);
 }
 
 unsigned int Ford::elementIndex(unsigned int elementSize, unsigned int n) {

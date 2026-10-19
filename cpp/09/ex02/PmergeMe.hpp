@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 13:06:56 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/19 13:01:22 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/19 17:26:13 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,24 +135,37 @@ namespace Ford {
 	// 			-Jacobsthal sequence to determine the <order> of insertion
 	template <typename Container>
 	void	mergeInsert(Container &c, Container &temp, unsigned int elementSize, unsigned int &comparisons) {
+		unsigned int aTotal = c.size() / elementSize - 1;
+		// Create container to store the position of each a in c (-1 accounts for b1)
+		// for a1, a2, ..., an: aPosition = [0, 1, ..., n - 1]
+		// aTotal + 1 to account for an unpaired b value (uneven number of elements)
+		Container aPosition(aTotal + 1, 0);
+		// Fill the aPosition container with the positions of each a in c
+		// a1[0](2), a2[1](3), a3[2](4), ..., an[n - 1](n + 1)
+		for (unsigned int n = 1; n <= aTotal + 1; n++)
+			aPosition[n - 1] = n + 1;
+
 		unsigned int totalElements = temp.size() / elementSize;
 		unsigned int previous = 0;
 		unsigned int ithJacobsthal = 2;
-		unsigned int current = Jacobsthal(ithJacobsthal);
-		unsigned int insertedNumbers = 0;
+		unsigned int current = Jacobsthal(ithJacobsthal) - 1;
 
 		while (previous < totalElements) {
 			unsigned int upper = std::min(current, totalElements);
-			unsigned int searchLimit = upper + insertedNumbers + 1;
 			for (unsigned int n = upper; n > previous; --n) {
-				unsigned int dstN = binarySearch(c, temp, elementSize, n, searchLimit, comparisons);
+				unsigned int dstN = binarySearch(c, temp, elementSize, n, aPosition[n] - 1, comparisons);
+				// Update the aPosition container to account for the newly inserted element
+				for (unsigned int i = 0; i < aPosition.size(); ++i) {
+					if (static_cast<unsigned int>(aPosition[i]) >= dstN)
+						aPosition[i] += 1;
+				}
+
 				insertBefore(temp, c, elementSize, n, dstN);
-				++insertedNumbers;
 			}
 
 			previous = upper;
 			++ithJacobsthal;
-			current = Jacobsthal(ithJacobsthal);
+			current = Jacobsthal(ithJacobsthal) - 1;
 		}
 	}
 
@@ -196,6 +209,8 @@ namespace Ford {
 		auto start = std::chrono::high_resolution_clock::now();
 		recursiveSort(c, 1, comparisons);
 		auto end = std::chrono::high_resolution_clock::now();
+
+		std::cout << comparisons << " : " << validateAlgorithm(c.size()) << std::endl;
 
 		assert(std::is_sorted(c.begin(), c.end()));
 		assert(comparisons <= validateAlgorithm(c.size()));
