@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 13:06:56 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/19 12:39:54 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/19 13:01:22 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,18 @@ namespace Ford {
 	template <typename Container>
 	void	pushElement(Container &src, Container &dst, unsigned int elementSize, unsigned int n) {
 		for (unsigned int i = 0; i < elementSize; i++) {
-			dst.push_back(src.at(elementIndex(elementSize, n) + i));
+			dst.push_back(src[elementIndex(elementSize, n) + i]);
 		}
 	}
 
 	// Insert an element from src to dst before the element at index n
 	template <typename Container>
 	void	insertBefore(Container &src, Container &dst, unsigned int elementSize, unsigned int srcN, unsigned int dstN) {
-		for (unsigned int i = 0; i < elementSize; i++) {
-			dst.insert(dst.begin() + elementIndex(elementSize, dstN) + i, src.at(elementIndex(elementSize, srcN) + i));
-		}
+		dst.insert(
+			dst.begin() + elementIndex(elementSize, dstN),	// pos
+			src.begin() + elementIndex(elementSize, srcN),	// first
+			src.begin() + elementIndex(elementSize, srcN) + elementSize	// last
+		);
 	}
 
 	// pop an element from the container
@@ -72,8 +74,8 @@ namespace Ford {
 		while (low <= high) {
 			++comparisons;
 			int mid = (low + high) / 2;
-			if (c.at(elementIndex(elementSize, mid) + elementSize - 1)
-				< temp.at(elementIndex(elementSize, n) + elementSize - 1)) {
+			if (c[elementIndex(elementSize, mid) + elementSize - 1]
+				< temp[elementIndex(elementSize, n) + elementSize - 1]) {
 				low = mid + 1;
 			} else {
 				high = mid - 1;
@@ -85,13 +87,13 @@ namespace Ford {
 	// Get the a value of a pair
 	template <typename Container>
 	int		aValue(Container &c, unsigned int elementSize, unsigned int n) {
-		return (c.at(elementIndex(elementSize, getA(n)) + elementSize - 1));
+		return (c[(elementIndex(elementSize, getA(n)) + elementSize - 1)]);
 	}
 
 	// Get the b value of a pair
 	template <typename Container>
 	int		bValue(Container &c, unsigned int elementSize, unsigned int n) {
-		return (c.at(elementIndex(elementSize, getB(n)) + elementSize - 1));
+		return (c[(elementIndex(elementSize, getB(n)) + elementSize - 1)]);
 	}
 
 	// Swap all elements of a pair
@@ -164,7 +166,8 @@ namespace Ford {
 	*/
 	template <typename Container>
 	void	recursiveSort(Container &c, unsigned int depth, unsigned int &comparisons) {
-		unsigned int pairSize = std::pow(2, depth);
+		// bitshift for optimization
+		unsigned int pairSize = 1u << depth; // 2^depth;
 
 		// If no more pairs can be formed, return
 		if (c.size() / pairSize == 0)

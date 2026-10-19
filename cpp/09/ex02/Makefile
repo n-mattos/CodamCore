@@ -1,16 +1,16 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: nmattos- <nmattos-@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2026/10/12 11:19:20 by nmattos-      #+#    #+#                  #
-#    Updated: 2026/10/18 17:37:24 by nmattos       ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/10/12 11:19:20 by nmattos-          #+#    #+#              #
+#    Updated: 2026/10/19 12:53:18 by nmattos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++11 -O2
 NAME = PmergeMe
 SRC = main.cpp \
 	  PmergeMe.cpp
