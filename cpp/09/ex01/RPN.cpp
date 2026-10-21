@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 10:47:28 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/13 13:05:27 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/21 11:44:23 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ float RPN::calculate(const std::string &input) {
 
 	try {
 		while (sstream >> element) {
+			// Handle negative numbers
+			if (element[0] == '-' && element.length() > 1) {
+				if (element.substr(1).find_first_not_of("0123456789") != std::string::npos)
+					throw std::invalid_argument("Not a number or valid mathOperator (+ - / *): " + element);
+				stack.push(std::stof(element));
+				continue;
+			}
 			// If operator: Pop 2, calculate, Push
 			if (element.find_first_not_of("0123456789") != std::string::npos) {
 				stack.push(_performOperation(&stack, element));

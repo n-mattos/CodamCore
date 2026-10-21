@@ -6,7 +6,7 @@
 /*   By: nmattos- <nmattos-@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 10:39:37 by nmattos-          #+#    #+#             */
-/*   Updated: 2026/10/13 11:31:29 by nmattos-         ###   ########.fr       */
+/*   Updated: 2026/10/21 11:37:09 by nmattos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
-		std::cerr << "Usage: " << std::endl;
+		std::cerr << "Usage: 3 2 *" << std::endl;
 		return 1;
 	}
 
